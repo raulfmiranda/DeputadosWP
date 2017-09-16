@@ -25,6 +25,11 @@ namespace Deputados.Model
         public List<Comissao> comissoes { get; set; }
         public List<Projeto> projetos { get; set; }
 
+        public Deputado()
+        {
+
+        }
+
 
     }
 }

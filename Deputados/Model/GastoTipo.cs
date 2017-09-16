@@ -12,5 +12,10 @@ namespace Deputados.Model
         public string nome { get; set; }
         public double valor { get; set; }
         public double media { get; set; }
+
+        public GastoTipo()
+        {
+
+        }
     }
 }

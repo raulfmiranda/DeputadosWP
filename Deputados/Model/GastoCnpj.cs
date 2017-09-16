@@ -13,5 +13,10 @@ namespace Deputados.Model
         public string descricao { get; set; }
         public object detalhe { get; set; }
         public double totalGasto { get; set; }
+
+        public GastoCnpj()
+        {
+
+        }
     }
 }
