@@ -95,11 +95,13 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DBHelper\DatabaseHelper.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Comissao.cs" />
     <Compile Include="Model\Deputado.cs" />
+    <Compile Include="Model\DeputadoFrenquencia.cs" />
     <Compile Include="Model\GastoCnpj.cs" />
     <Compile Include="Model\GastosAno.cs" />
     <Compile Include="Model\GastoTipo.cs" />
@@ -136,8 +138,13 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>5.2.3</Version>
     </PackageReference>
+    <PackageReference Include="System.Data.SQLite">
+      <Version>1.0.105.2</Version>
+    </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
