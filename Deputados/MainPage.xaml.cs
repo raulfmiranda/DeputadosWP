@@ -1,6 +1,7 @@
 ﻿using Deputados.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -59,6 +60,13 @@ namespace Deputados
                 tbConteudo.Text = "3";
             }
 
+        }
+
+        private ObservableCollection<Deputado> gerarListaDeputados()
+        {
+            ObservableCollection<Deputado> lista = new ObservableCollection<Deputado>();
+
+            return lista;
         }
     }
 }
