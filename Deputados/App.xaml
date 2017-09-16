@@ -6,60 +6,12 @@
     RequestedTheme="Light">
 
     <Application.Resources>
-        <SolidColorBrush x:Key="screen_background" Color="White"/>
-        <SolidColorBrush x:Key="screen_text" Color="Black"/>
-        <SolidColorBrush x:Key="button_text" Color="White"/>
-        <SolidColorBrush x:Key="button_background" Color="Green"/>
-        <SolidColorBrush x:Key="button_text_secondary" Color="Black"/>
-        <SolidColorBrush x:Key="button_background_secondary" Color="White"/>
-        <SolidColorBrush x:Key="button_secondary_border" Color="Green"/>
 
-        <Style TargetType="Button" x:Key="ButtonPrimary">
-            <Setter Property="Background" Value="{StaticResource button_background}"/>
-            <Setter Property="Foreground" Value="{StaticResource button_text}"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="FontSize" Value="20"/>
-        </Style>
-
-        <Style TargetType="Button" x:Key="ButtonSecondary">
-            <Setter Property="Background" Value="{StaticResource button_background_secondary}"/>
-            <Setter Property="Foreground" Value="{StaticResource button_text_secondary}"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="BorderBrush" Value="{StaticResource button_secondary_border}"/>
-            <Setter Property="BorderThickness" Value="1"/>
-        </Style>
-
-        <Style TargetType="TextBlock" x:Key="TextBlockStyle">
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="Foreground" Value="{StaticResource screen_text}"/>
-            <Setter Property="TextWrapping" Value="WrapWholeWords"/>
-        </Style>
-
-        <Style TargetType="TextBlock" x:Key="TextBlockTitle">
-            <Setter Property="FontSize" Value="40"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="Foreground" Value="{StaticResource screen_text}"/>
-        </Style>
-
-        <Style TargetType="TextBox" x:Key="TextBoxStyle">
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="Foreground" Value="{StaticResource screen_text}"/>
-            <Setter Property="TextWrapping" Value="Wrap"/>
-        </Style>
-
-        <Style TargetType="PasswordBox" x:Key="PassBoxStyle">
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="Foreground" Value="{StaticResource screen_text}"/>
-            <Setter Property="PlaceholderText" Value="Senha"/>
-        </Style>
-
-        <Style TargetType="HyperlinkButton" x:Key="LinkStyle">
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="Foreground" Value="{StaticResource screen_text}"/>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="DepDic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>        
 
     </Application.Resources>
 

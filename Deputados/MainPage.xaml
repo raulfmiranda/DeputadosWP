@@ -5,9 +5,45 @@
     xmlns:local="using:Deputados"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{StaticResource page_background}"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <SplitView x:Name="splitView" DisplayMode="CompactOverlay" IsPaneOpen="False" CompactPaneLength="50" OpenPaneLength="150" Background="{StaticResource screen_background}" >
+        <SplitView.Pane>
+            <StackPanel Background="{StaticResource button_background}">
+                <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" Width="50" Height="50" Background="Transparent" Click="HamburgerButton_Click"/>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="mbt1" FontFamily="Segoe MDL2 Assets" Content="&#xE77B;"
+                    Width="50" Height="50" Background="Transparent" Click="Global_Button_Click"/>
+                    <TextBlock Text="Listar Deputados" MaxWidth="100" TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="mbt2" FontFamily="Segoe MDL2 Assets" Content="&#xE7AC;"
+                        Width="50" Height="50" Background="Transparent" Click="Global_Button_Click"/>
+                    <TextBlock Text="Ranking de Despesas" MaxWidth="100" TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="mbt3" FontFamily="Segoe MDL2 Assets" Content="&#xE8E0;"
+                        Width="50" Height="50" Background="Transparent" Click="Global_Button_Click"/>
+                    <TextBlock Text="Principais Gastadores" MaxWidth="100" TextWrapping="Wrap" />
+                </StackPanel>
+            </StackPanel>
 
-    </Grid>
+        </SplitView.Pane>
+        <SplitView.Content>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <ScrollViewer VerticalScrollMode="Enabled">
+                    <Grid Padding="10" Height="auto">
+                        <TextBlock x:Name="tbConteudo" Text="Texto" Style="{StaticResource TextBlockStyle}"/>
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+        </SplitView.Content>
+    </SplitView>
 </Page>
