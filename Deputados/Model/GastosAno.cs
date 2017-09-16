@@ -14,5 +14,8 @@ namespace Deputados.Model
         public object descricaoGasto { get; set; }
         public object dataEmissao { get; set; }
         public double valor { get; set; }
+
+        public GastosAno()
+        { }
     }
 }

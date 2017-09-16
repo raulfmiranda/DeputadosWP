@@ -24,6 +24,12 @@ namespace Deputados.Model
         public double gastoPorDia { get; set; }
         public List<Comissao> comissoes { get; set; }
         public List<Projeto> projetos { get; set; }
+        public List<DeputadoFrenquencia> frequencias { get; set; }
+
+        public Deputado()
+        {
+
+        }
 
 
     }

@@ -15,5 +15,8 @@ namespace Deputados.Model
         public string dataApresentacao { get; set; }
         public string sigla { get; set; }
         public string ementa { get; set; }
+
+        public Projeto()
+        { }
     }
 }
