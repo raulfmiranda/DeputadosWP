@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Deputados.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,6 +23,8 @@ namespace Deputados
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        Deputado deputado = new Deputado();
+
         public MainPage()
         {
             this.InitializeComponent();
