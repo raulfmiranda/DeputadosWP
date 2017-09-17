@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x416
@@ -25,11 +26,12 @@ namespace Deputados
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        Deputado deputado = new Deputado();
+        private ObservableCollection<Deputado> deputados;
 
         public MainPage()
         {
             this.InitializeComponent();
+            gerarListaDeputados();
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
@@ -49,24 +51,43 @@ namespace Deputados
 
             if (btn.Name.Equals("mbt1"))
             {
-                tbConteudo.Text = "1";
+                //tbConteudo.Text = "1";
             }
             else if (btn.Name.Equals("mbt2"))
             {
-                tbConteudo.Text = "2";
+                //tbConteudo.Text = "2";
             }
             else if (btn.Name.Equals("mbt3"))
             {
-                tbConteudo.Text = "3";
+                //tbConteudo.Text = "3";
             }
 
         }
 
-        private ObservableCollection<Deputado> gerarListaDeputados()
+        private void gerarListaDeputados()
         {
-            ObservableCollection<Deputado> lista = new ObservableCollection<Deputado>();
+            deputados = new ObservableCollection<Deputado>();
 
-            return lista;
+            Deputado deputado = new Deputado();
+            deputado.Id = "160976";
+            deputado.NomeParlamentar = "TIRIRICA";
+            deputado.NomeCompleto = "FRANCISCO EVERARDO OLIVEIRA SILVA";
+            deputado.Cargo = "DEPUTADO FEDERAL";
+            deputado.Partido = "PR";
+            deputado.Mandato = "2011-2014";
+            deputado.Sexo = "M";
+            deputado.Uf = "SP";
+            deputado.Telefone = "3215-5637";
+            deputado.Email = "dep.tiririca@camara.gov.br";
+            deputado.Nascimento = "6/4/65";
+            deputado.FotoURL = "http://www.camara.gov.br/internet/deputado/bandep/160976.jpg";
+            deputado.GastoTotal = 767049.9806302488;
+            deputado.GastoPorDia = 525.0170983095475;
+            deputado.imageFromUrl = new BitmapImage(new Uri(deputado.FotoURL, UriKind.Absolute));
+
+            deputados.Add(deputado);
+            deputados.Add(deputado);
+            deputados.Add(deputado);
         }
     }
 }

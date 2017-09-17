@@ -3,28 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace Deputados.Model
 {
     class Deputado
     {
-        public string id { get; set; }
-        public string nomeParlamentar { get; set; }
-        public string nomeCompleto { get; set; }
-        public string cargo { get; set; }
-        public string partido { get; set; }
-        public string mandato { get; set; }
-        public string sexo { get; set; }
-        public string uf { get; set; }
-        public string telefone { get; set; }
-        public string email { get; set; }
-        public string nascimento { get; set; }
-        public string fotoURL { get; set; }
-        public double gastoTotal { get; set; }
-        public double gastoPorDia { get; set; }
-        public List<Comissao> comissoes { get; set; }
-        public List<Projeto> projetos { get; set; }
-        public List<DeputadoFrenquencia> frequencias { get; set; }
+        public string Id { get; set; }
+        public string NomeParlamentar { get; set; }
+        public string NomeCompleto { get; set; }
+        public string Cargo { get; set; }
+        public string Partido { get; set; }
+        public string Mandato { get; set; }
+        public string Sexo { get; set; }
+        public string Uf { get; set; }
+        public string Telefone { get; set; }
+        public string Email { get; set; }
+        public string Nascimento { get; set; }
+        public string FotoURL { get; set; }
+        public double GastoTotal { get; set; }
+        public double GastoPorDia { get; set; }
+        public List<Comissao> Comissoes { get; set; }
+        public List<Projeto> Projetos { get; set; }
+        public List<DeputadoFrenquencia> Frequencias { get; set; }
+        public BitmapImage imageFromUrl { get; set; }
 
         public Deputado()
         {

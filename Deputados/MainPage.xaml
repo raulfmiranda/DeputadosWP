@@ -2,9 +2,10 @@
     x:Class="Deputados.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Deputados"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:data="using:Deputados.Model"
     Background="{StaticResource page_background}"
     mc:Ignorable="d">
 
@@ -40,7 +41,25 @@
                 </Grid.RowDefinitions>
                 <ScrollViewer VerticalScrollMode="Enabled">
                     <Grid Padding="10" Height="auto">
-                        <TextBlock x:Name="tbConteudo" Text="Texto" Style="{StaticResource TextBlockStyle}"/>
+                        <ListView ItemsSource="{x:Bind deputados}" x:Name="lvDeputados" Background="{StaticResource screen_background}">
+                            <ListView.ItemTemplate>
+                                <ui:DataTemplate x:DataType="data:Deputado">
+                                    <Grid BorderThickness="1" BorderBrush="{StaticResource screen_text}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Source="{x:Bind imageFromUrl}" Grid.RowSpan="2"/>
+                                        <TextBox Text="{x:Bind NomeParlamentar}" Grid.Column="1" TextWrapping="Wrap" BorderThickness="0"/>
+                                        <TextBox Text="{x:Bind Cargo}" Grid.Column="1" Grid.Row="1" BorderThickness="0"/>
+                                    </Grid>
+                                </ui:DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
                     </Grid>
                 </ScrollViewer>
             </Grid>
