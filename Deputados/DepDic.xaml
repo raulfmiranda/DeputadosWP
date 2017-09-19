@@ -9,8 +9,9 @@
     <SolidColorBrush x:Key="button_background" Color="LimeGreen"/>
     <SolidColorBrush x:Key="button_text_secondary" Color="Black"/>
     <SolidColorBrush x:Key="button_background_secondary" Color="White"/>
-    <SolidColorBrush x:Key="button_secondary_border" Color="Green"/>
+    <SolidColorBrush x:Key="button_secondary_border" Color="LimeGreen"/>
     <SolidColorBrush x:Key="page_background" Color="Black"/>
+    <SolidColorBrush x:Key="hlink_foreground" Color="LimeGreen"/>
 
     <Style TargetType="Button" x:Key="ButtonPrimary">
         <Setter Property="Background" Value="{StaticResource button_background}"/>

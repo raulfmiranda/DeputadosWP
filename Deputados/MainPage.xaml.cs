@@ -27,11 +27,14 @@ namespace Deputados
     public sealed partial class MainPage : Page
     {
         private ObservableCollection<Deputado> deputados;
+        private List<Deputado> listaDeputados;
 
         public MainPage()
         {
             this.InitializeComponent();
-            gerarListaDeputados();
+            deputados = new ObservableCollection<Deputado>();
+            InitComboEstados();
+            GerarListaDeputados();
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
@@ -64,9 +67,23 @@ namespace Deputados
 
         }
 
-        private void gerarListaDeputados()
+        private void InitComboEstados()
         {
-            deputados = new ObservableCollection<Deputado>();
+            string[] ufs = 
+                {"TODOS", "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "AL", "AM", "AP", "BA", "CE",
+                "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN",
+                "RO", "RR", "RS", "SC", "SE", "SP", "TO", "GO", "MA", "MG", "MS", "MT", "PA", "PB",
+                "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO" };
+
+            foreach(string uf in ufs)
+            {
+                cbEstados.Items.Add(uf);
+            }
+        }
+
+        private void GerarListaDeputados()
+        {
+            listaDeputados = new List<Deputado>();
 
             Deputado deputado = new Deputado();
             deputado.Id = "160976";
@@ -85,9 +102,47 @@ namespace Deputados
             deputado.GastoPorDia = 525.0170983095475;
             deputado.imageFromUrl = new BitmapImage(new Uri(deputado.FotoURL, UriKind.Absolute));
 
-            deputados.Add(deputado);
-            deputados.Add(deputado);
-            deputados.Add(deputado);
+            for (int i = 0; i < 10; i++)
+            {
+                listaDeputados.Add(deputado);
+                deputados.Add(deputado);
+            }
+        }
+
+        private void FiltrarDeputados(string uf)
+        {
+            deputados.Clear();
+
+            if(uf.Equals("TODOS"))
+            {
+                foreach(Deputado dep in listaDeputados)
+                {
+                    deputados.Add(dep);
+                }
+            }
+            else
+            {
+                foreach (Deputado dep in listaDeputados)
+                {
+                    if(dep.Uf.Equals(uf))
+                    {
+                        deputados.Add(dep);
+                    }
+                }
+            }
+        }
+
+        private void LinkNomeParlamentar_Click(object sender, RoutedEventArgs e)
+        {
+            HyperlinkButton linkBtn = sender as HyperlinkButton;
+    
+            this.Frame.Navigate(typeof(DetalheDeputado), linkBtn.Content);
+        }
+
+        private void cbEstados_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string uf = cbEstados.SelectedValue.ToString();
+            FiltrarDeputados(uf);
         }
     }
 }
