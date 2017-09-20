@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Deputados.Model
 {
-    class DeputadoFrenquencia
+    public class DeputadoFrenquencia
     {
         public string idParlamentar { get; set; }
         public int ano { get; set; }

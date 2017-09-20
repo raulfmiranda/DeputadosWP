@@ -26,7 +26,10 @@ namespace Deputados
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        // Lista de Deputados que está fazendo Bind com a MainPage.xaml
         private ObservableCollection<Deputado> deputados;
+
+        // Lista para guardar todos os deputados
         private List<Deputado> listaDeputados;
 
         public MainPage()
@@ -83,6 +86,7 @@ namespace Deputados
 
         private void GerarListaDeputados()
         {
+            
             listaDeputados = new List<Deputado>();
 
             Deputado deputado = new Deputado();
@@ -136,7 +140,19 @@ namespace Deputados
         {
             HyperlinkButton linkBtn = sender as HyperlinkButton;
     
-            this.Frame.Navigate(typeof(DetalheDeputado), linkBtn.Content);
+            this.Frame.Navigate(typeof(DetalheDeputado), BuscaDeputado(linkBtn.Content.ToString()));
+        }
+
+        private Deputado BuscaDeputado(string nome)
+        {
+            foreach(Deputado dep in listaDeputados)
+            {
+                if(dep.NomeParlamentar.Equals(nome))
+                {
+                    return dep;
+                }
+            }
+            return null;
         }
 
         private void cbEstados_SelectionChanged(object sender, SelectionChangedEventArgs e)

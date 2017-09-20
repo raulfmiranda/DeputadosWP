@@ -105,6 +105,7 @@
     <Compile Include="Model\Comissao.cs" />
     <Compile Include="Model\Deputado.cs" />
     <Compile Include="Model\DeputadoFrenquencia.cs" />
+    <Compile Include="Model\DeputadosSingleton.cs" />
     <Compile Include="Model\GastoCnpj.cs" />
     <Compile Include="Model\GastosAno.cs" />
     <Compile Include="Model\GastoTipo.cs" />

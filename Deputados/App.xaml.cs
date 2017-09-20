@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Deputados.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,6 +27,7 @@ namespace Deputados
         /// Inicializa o objeto singleton do aplicativo.  Esta é a primeira linha de código criado
         /// executado e, como tal, é o equivalente lógico de main() ou WinMain().
         /// </summary>
+
         public App()
         {
             this.InitializeComponent();

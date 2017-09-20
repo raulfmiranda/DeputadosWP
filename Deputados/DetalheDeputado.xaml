@@ -5,9 +5,93 @@
     xmlns:local="using:Deputados"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{StaticResource page_background}"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock x:Name="tbNomeParlamentar" Style="{StaticResource TitleTextBlockStyle}"/>
-    </Grid>
+    <SplitView x:Name="splitView" DisplayMode="CompactOverlay" IsPaneOpen="False" CompactPaneLength="50" OpenPaneLength="150" Background="{StaticResource screen_background}" >
+        <SplitView.Pane>
+            <StackPanel Background="{StaticResource button_background}">
+                <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" Width="50" Height="50" Background="Transparent" Click="HamburgerButton_Click"/>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="mbt1" FontFamily="Segoe MDL2 Assets" Content="&#xE77B;"
+                    Width="50" Height="50" Background="Transparent" Click="Global_Button_Click"/>
+                    <TextBlock Text="Listar Deputados" MaxWidth="100" TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="mbt2" FontFamily="Segoe MDL2 Assets" Content="&#xE7AC;"
+                        Width="50" Height="50" Background="Transparent" Click="Global_Button_Click"/>
+                    <TextBlock Text="Ranking de Despesas" MaxWidth="100" TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="mbt3" FontFamily="Segoe MDL2 Assets" Content="&#xE8E0;"
+                        Width="50" Height="50" Background="Transparent" Click="Global_Button_Click"/>
+                    <TextBlock Text="Principais Gastadores" MaxWidth="100" TextWrapping="Wrap" />
+                </StackPanel>
+            </StackPanel>
+
+        </SplitView.Pane>
+        <SplitView.Content>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <ScrollViewer VerticalScrollMode="Enabled">
+                    <StackPanel Padding="10" Height="auto">
+                        <Image x:Name="imgFromUrl"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Nome: "/>
+                            <TextBlock x:Name="tbNomeParlamentar"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Nome Completo: "/>
+                            <TextBlock x:Name="tbNomeCompleto"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Cargo: "/>
+                            <TextBlock x:Name="tbCargo"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Partido: "/>
+                            <TextBlock x:Name="tbPartido"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Mandato: "/>
+                            <TextBlock x:Name="tbMandato"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Sexo: "/>
+                            <TextBlock x:Name="tbSexo"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Uf: "/>
+                            <TextBlock x:Name="tbUf"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Telefone: "/>
+                            <TextBlock x:Name="tbTelefone"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Email: "/>
+                            <TextBlock x:Name="tbEmail"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Nascimento: "/>
+                            <TextBlock x:Name="tbNascimento"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Gasto Total: "/>
+                            <TextBlock x:Name="tbGastoTotal"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="GastoPorDia: "/>
+                            <TextBlock x:Name="tbGastoPorDia"/>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </SplitView.Content>
+    </SplitView>
 </Page>
