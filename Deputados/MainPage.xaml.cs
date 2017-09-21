@@ -49,15 +49,9 @@ namespace Deputados
         {
             Button btn = sender as Button;
 
-            mbt1.BorderBrush = new SolidColorBrush(Colors.Transparent);
-            mbt2.BorderBrush = new SolidColorBrush(Colors.Transparent);
-            mbt3.BorderBrush = new SolidColorBrush(Colors.Transparent);
-            btn.BorderBrush = new SolidColorBrush(Colors.White);
-            btn.BorderThickness = new Thickness(5, 0, 0, 0);
-
             if (btn.Name.Equals("mbt1"))
             {
-                //tbConteudo.Text = "1";
+                this.Frame.Navigate(typeof(MainPage));
             }
             else if (btn.Name.Equals("mbt2"))
             {
@@ -67,7 +61,6 @@ namespace Deputados
             {
                 //tbConteudo.Text = "3";
             }
-
         }
 
         private void InitComboEstados()

@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Deputados.DetalheDeputado"
+    x:Class="Deputados.Frequencia"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Deputados"
@@ -42,64 +42,33 @@
                     <StackPanel Padding="10" Height="auto">
                         <Image x:Name="imgFromUrl" MaxWidth="100" MaxHeight="130"/>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Nome:  " Margin="2"/>
-                            <TextBlock x:Name="tbNomeParlamentar" Margin="2" FontWeight="Bold"/>
-                        </StackPanel>
-                        <TextBlock Text="Nome Completo:  " Margin="2"/>
-                        <TextBlock x:Name="tbNomeCompleto" Margin="2" FontWeight="Bold" TextWrapping="Wrap"/>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Cargo:  " Margin="2"/>
-                            <TextBlock x:Name="tbCargo" Margin="2" FontWeight="Bold"/>
+                            <TextBlock Text="Ano:  " Margin="2"/>
+                            <TextBlock x:Name="tbAno" Margin="2" FontWeight="Bold"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Partido:  " Margin="2"/>
-                            <TextBlock x:Name="tbPartido" Margin="2" FontWeight="Bold"/>
+                            <TextBlock Text="Presencas Dias:  " Margin="2"/>
+                            <TextBlock x:Name="tbPresencasDias" Margin="2" FontWeight="Bold"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Mandato:  " Margin="2"/>
-                            <TextBlock x:Name="tbMandato" Margin="2" FontWeight="Bold"/>
+                            <TextBlock Text="Presencas Sessoes:  " Margin="2"/>
+                            <TextBlock x:Name="tbPresencasSessoes" Margin="2" FontWeight="Bold"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Sexo:  " Margin="2"/>
-                            <TextBlock x:Name="tbSexo" Margin="2" FontWeight="Bold"/>
-                            <TextBlock Text="UF:  " Margin="2"/>
-                            <TextBlock x:Name="tbUf" Margin="2" FontWeight="Bold"/>
+                            <TextBlock Text="Ausencias Dias:  " Margin="2"/>
+                            <TextBlock x:Name="tbAusenciasDias" Margin="2" FontWeight="Bold"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Telefone:  " Margin="2"/>
-                            <TextBlock x:Name="tbTelefone" Margin="2" FontWeight="Bold"/>
+                            <TextBlock Text="Ausencias Sessoes:  " Margin="2"/>
+                            <TextBlock x:Name="tbAusenciasSessoes" Margin="2" FontWeight="Bold"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Email:  " Margin="2"/>
-                            <TextBlock x:Name="tbEmail" Margin="2" FontWeight="Bold"/>
+                            <TextBlock Text="Indice Presenca:  " Margin="2"/>
+                            <TextBlock x:Name="tbIndicePresenca" Margin="2" FontWeight="Bold"/>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Nascimento:  " Margin="2"/>
-                            <TextBlock x:Name="tbNascimento" Margin="2" FontWeight="Bold"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Gasto Total:  " Margin="2"/>
-                            <TextBlock x:Name="tbGastoTotal" Margin="2" FontWeight="Bold"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Gasto por Dia:  " Margin="2"/>
-                            <TextBlock x:Name="tbGastoPorDia" Margin="2" FontWeight="Bold"/>
-                        </StackPanel>
+                        <Button x:Name="btVoltar" Content="Voltar" Style="{StaticResource ButtonSecondary}" Margin="0 250 0 0"/>
                     </StackPanel>
                 </ScrollViewer>
             </Grid>
         </SplitView.Content>
     </SplitView>
-
-    <Page.BottomAppBar>
-        <CommandBar Background="{StaticResource button_background}">
-            <CommandBar.SecondaryCommands>
-                <AppBarButton x:Name="btFrequencia" Label="Frequência" Click="btFrequencia_Click"/>
-                <AppBarButton x:Name="btComissoes" Label="Comissões"/>
-                <AppBarButton x:Name="btProjetos" Label="Projetos de Lei"/>
-                <AppBarButton x:Name="btTipoGastos" Label="Tipos de Gastos"/>
-                <AppBarButton x:Name="btEvolGastos" Label="Evolução dos Gastos"/>
-            </CommandBar.SecondaryCommands>
-        </CommandBar>
-    </Page.BottomAppBar>
 </Page>

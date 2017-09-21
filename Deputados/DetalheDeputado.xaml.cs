@@ -1,6 +1,7 @@
 ﻿using Deputados.Model;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -13,6 +14,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -36,6 +38,7 @@ namespace Deputados
             if (e.Parameter != null)
             {
                 deputado = (Deputado)e.Parameter;
+                imgFromUrl.Source = new BitmapImage(new Uri(deputado.FotoURL, UriKind.Absolute));
                 tbNomeParlamentar.Text = deputado.NomeParlamentar;
                 tbNomeCompleto.Text = deputado.NomeCompleto;
                 tbCargo.Text = deputado.Cargo;
@@ -46,8 +49,8 @@ namespace Deputados
                 tbTelefone.Text = deputado.Telefone;
                 tbEmail.Text = deputado.Email;
                 tbNascimento.Text = deputado.Nascimento;
-                tbGastoTotal.Text = deputado.GastoTotal.ToString();
-                tbGastoPorDia.Text = deputado.GastoPorDia.ToString();
+                tbGastoTotal.Text = string.Format(CultureInfo.CurrentCulture, "{0:C}", deputado.GastoTotal);
+                tbGastoPorDia.Text = string.Format(CultureInfo.CurrentCulture, "{0:C}", deputado.GastoPorDia); 
             }
         }
 
@@ -60,15 +63,9 @@ namespace Deputados
         {
             Button btn = sender as Button;
 
-            mbt1.BorderBrush = new SolidColorBrush(Colors.Transparent);
-            mbt2.BorderBrush = new SolidColorBrush(Colors.Transparent);
-            mbt3.BorderBrush = new SolidColorBrush(Colors.Transparent);
-            btn.BorderBrush = new SolidColorBrush(Colors.White);
-            btn.BorderThickness = new Thickness(5, 0, 0, 0);
-
             if (btn.Name.Equals("mbt1"))
             {
-                //tbConteudo.Text = "1";
+                this.Frame.Navigate(typeof(MainPage));
             }
             else if (btn.Name.Equals("mbt2"))
             {
@@ -78,7 +75,11 @@ namespace Deputados
             {
                 //tbConteudo.Text = "3";
             }
+        }
 
+        private void btFrequencia_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(Frequencia));
         }
     }
 }
