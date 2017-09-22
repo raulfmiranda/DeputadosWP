@@ -22046,10 +22046,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Raul\\Documents\\Visual Studio 2017\\Projects\\Deputados\\Deputados\\Deputados.csproj",
+      "projectUniqueName": "C:\\Users\\Raul\\documents\\visual studio 2017\\Projects\\Deputados\\Deputados\\Deputados.csproj",
       "projectName": "Deputados",
-      "projectPath": "C:\\Users\\Raul\\Documents\\Visual Studio 2017\\Projects\\Deputados\\Deputados\\Deputados.csproj",
-      "outputPath": "C:\\Users\\Raul\\Documents\\Visual Studio 2017\\Projects\\Deputados\\Deputados\\obj\\",
+      "projectPath": "C:\\Users\\Raul\\documents\\visual studio 2017\\Projects\\Deputados\\Deputados\\Deputados.csproj",
+      "outputPath": "C:\\Users\\Raul\\documents\\visual studio 2017\\Projects\\Deputados\\Deputados\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "uap10.0.10586"

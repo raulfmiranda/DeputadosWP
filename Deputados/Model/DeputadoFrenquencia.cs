@@ -8,12 +8,12 @@ namespace Deputados.Model
 {
     public class DeputadoFrenquencia
     {
-        public string idParlamentar { get; set; }
-        public int ano { get; set; }
-        public int presencasDias { get; set; }
-        public int presencasSessoes { get; set; }
-        public int ausenciasDias { get; set; }
-        public int ausenciasSessoes { get; set; }
-        public double indicePresenca { get; set; }
+        public string IdParlamentar { get; set; }
+        public int Ano { get; set; }
+        public int PresencasDias { get; set; }
+        public int PresencasSessoes { get; set; }
+        public int AusenciasDias { get; set; }
+        public int AusenciasSessoes { get; set; }
+        public double IndicePresenca { get; set; }
     }
 }

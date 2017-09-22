@@ -79,7 +79,7 @@ namespace Deputados
 
         private void btFrequencia_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(Frequencia));
+            this.Frame.Navigate(typeof(Frequencia), deputado);
         }
     }
 }

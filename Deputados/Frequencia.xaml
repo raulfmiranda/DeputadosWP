@@ -5,6 +5,8 @@
     xmlns:local="using:Deputados"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:Deputados.Model"
+    xmlns:ui="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     Background="{StaticResource page_background}"
     mc:Ignorable="d">
 
@@ -36,38 +38,50 @@
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="12*"/>
+                    <RowDefinition Height="26*"/>
+                    <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
-                <ScrollViewer VerticalScrollMode="Enabled">
-                    <StackPanel Padding="10" Height="auto">
-                        <Image x:Name="imgFromUrl" MaxWidth="100" MaxHeight="130"/>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Ano:  " Margin="2"/>
-                            <TextBlock x:Name="tbAno" Margin="2" FontWeight="Bold"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Presencas Dias:  " Margin="2"/>
-                            <TextBlock x:Name="tbPresencasDias" Margin="2" FontWeight="Bold"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Presencas Sessoes:  " Margin="2"/>
-                            <TextBlock x:Name="tbPresencasSessoes" Margin="2" FontWeight="Bold"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Ausencias Dias:  " Margin="2"/>
-                            <TextBlock x:Name="tbAusenciasDias" Margin="2" FontWeight="Bold"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Ausencias Sessoes:  " Margin="2"/>
-                            <TextBlock x:Name="tbAusenciasSessoes" Margin="2" FontWeight="Bold"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Indice Presenca:  " Margin="2"/>
-                            <TextBlock x:Name="tbIndicePresenca" Margin="2" FontWeight="Bold"/>
-                        </StackPanel>
-                        <Button x:Name="btVoltar" Content="Voltar" Style="{StaticResource ButtonSecondary}" Margin="0 250 0 0"/>
-                    </StackPanel>
+                <StackPanel Padding="10">
+                    <TextBlock x:Name="tbNomeParlamentar" FontWeight="Bold" Style="{StaticResource TitleTextBlockStyle}" Margin="5" HorizontalAlignment="Center"/>
+                    <Image x:Name="imgFromUrl" MaxWidth="100" MaxHeight="130"/>
+                </StackPanel>
+                <ScrollViewer Grid.Row="1" VerticalScrollMode="Enabled" HorizontalAlignment="Center">
+                    <Grid Padding="10" Height="auto">
+                        <ListView ItemsSource="{x:Bind frequencias}" x:Name="lvFrequencias" Background="{StaticResource screen_background}">
+                            <ListView.ItemTemplate>
+                                <ui:DataTemplate x:DataType="data:DeputadoFrenquencia">
+                                    <StackPanel BorderBrush="{StaticResource screen_text}" BorderThickness="1" Margin="2" Padding="30 5 30 5">
+                                        <TextBlock x:Name="tbAno" Text="{x:Bind Ano}" Margin="2" Style="{StaticResource TitleTextBlockStyle}" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Presenças Dias:  " Margin="2"/>
+                                            <TextBlock x:Name="tbPresencasDias" Text="{x:Bind PresencasDias}" Margin="2" FontWeight="Bold"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Presenças Sessões:  " Margin="2"/>
+                                            <TextBlock x:Name="tbPresencasSessoes" Text="{x:Bind PresencasSessoes}" Margin="2" FontWeight="Bold"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Ausências Dias:  " Margin="2"/>
+                                            <TextBlock x:Name="tbAusenciasDias" Text="{x:Bind AusenciasDias}" Margin="2" FontWeight="Bold"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Ausências Sessões:  " Margin="2"/>
+                                            <TextBlock x:Name="tbAusenciasSessoes" Text="{x:Bind AusenciasSessoes}" Margin="2" FontWeight="Bold"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Índice Presença:  " Margin="2"/>
+                                            <TextBlock x:Name="tbIndicePresenca" Text="{x:Bind IndicePresenca}" Margin="2" FontWeight="Bold"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </ui:DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
                 </ScrollViewer>
+                <StackPanel Grid.Row="2" VerticalAlignment="Center">
+                    <Button x:Name="btVoltar" Content="Voltar" Style="{StaticResource ButtonSecondary}" Margin="5" Click="btVoltar_Click"/>
+                </StackPanel>
             </Grid>
         </SplitView.Content>
     </SplitView>
