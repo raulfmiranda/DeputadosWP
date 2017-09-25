@@ -95,6 +95,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ComissoesPage.xaml.cs">
+      <DependentUpon>ComissoesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DBHelper\DatabaseHelper.cs" />
     <Compile Include="DetalheDeputado.xaml.cs">
       <DependentUpon>DetalheDeputado.xaml</DependentUpon>
@@ -136,6 +139,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="ComissoesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DepDic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
