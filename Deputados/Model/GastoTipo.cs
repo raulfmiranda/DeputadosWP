@@ -8,10 +8,10 @@ namespace Deputados.Model
 {
     class GastoTipo
     {
-        public string idDeputado { get; set; }
-        public string nome { get; set; }
-        public double valor { get; set; }
-        public double media { get; set; }
+        public string IdDeputado { get; set; }
+        public string Nome { get; set; }
+        public double Valor { get; set; }
+        public double Media { get; set; }
 
         public GastoTipo()
         {

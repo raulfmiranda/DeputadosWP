@@ -132,7 +132,7 @@ namespace Deputados.Deputados_XamlTypeInfo
 
         private void InitTypeTables()
         {
-            _typeNameTable = new string[7];
+            _typeNameTable = new string[8];
             _typeNameTable[0] = "Deputados.ComissoesPage";
             _typeNameTable[1] = "Windows.UI.Xaml.Controls.Page";
             _typeNameTable[2] = "Windows.UI.Xaml.Controls.UserControl";
@@ -140,8 +140,9 @@ namespace Deputados.Deputados_XamlTypeInfo
             _typeNameTable[4] = "Deputados.Frequencia";
             _typeNameTable[5] = "Deputados.MainPage";
             _typeNameTable[6] = "Deputados.ProjetosPage";
+            _typeNameTable[7] = "Deputados.TiposGastosPage";
 
-            _typeTable = new global::System.Type[7];
+            _typeTable = new global::System.Type[8];
             _typeTable[0] = typeof(global::Deputados.ComissoesPage);
             _typeTable[1] = typeof(global::Windows.UI.Xaml.Controls.Page);
             _typeTable[2] = typeof(global::Windows.UI.Xaml.Controls.UserControl);
@@ -149,6 +150,7 @@ namespace Deputados.Deputados_XamlTypeInfo
             _typeTable[4] = typeof(global::Deputados.Frequencia);
             _typeTable[5] = typeof(global::Deputados.MainPage);
             _typeTable[6] = typeof(global::Deputados.ProjetosPage);
+            _typeTable[7] = typeof(global::Deputados.TiposGastosPage);
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -188,6 +190,7 @@ namespace Deputados.Deputados_XamlTypeInfo
         private object Activate_4_Frequencia() { return new global::Deputados.Frequencia(); }
         private object Activate_5_MainPage() { return new global::Deputados.MainPage(); }
         private object Activate_6_ProjetosPage() { return new global::Deputados.ProjetosPage(); }
+        private object Activate_7_TiposGastosPage() { return new global::Deputados.TiposGastosPage(); }
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(int typeIndex)
         {
@@ -238,6 +241,13 @@ namespace Deputados.Deputados_XamlTypeInfo
             case 6:   //  Deputados.ProjetosPage
                 userType = new global::Deputados.Deputados_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
                 userType.Activator = Activate_6_ProjetosPage;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 7:   //  Deputados.TiposGastosPage
+                userType = new global::Deputados.Deputados_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_7_TiposGastosPage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
