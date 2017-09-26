@@ -1,12 +1,16 @@
-﻿using System;
+﻿using Deputados.Model;
+using SQLite.Net;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -26,12 +30,39 @@ namespace Deputados
         /// Inicializa o objeto singleton do aplicativo.  Esta é a primeira linha de código criado
         /// executado e, como tal, é o equivalente lógico de main() ou WinMain().
         /// </summary>
+        public static string DB_PATH = Path.Combine(Path.Combine(ApplicationData.Current.LocalFolder.Path, "DeputadoDB.sqlite"));//DataBase Name 
         public App()
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            if (CheckFileExists("DeputadoDB.sqlite").Result)
+            {
+                using (var db = new SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), DB_PATH))
+                {
+                    db.CreateTable<Deputado>();
+                    db.CreateTable<Comissao>();
+                    db.CreateTable<DeputadoFrenquencia>();
+                    db.CreateTable<GastoCnpj>();
+                    db.CreateTable<GastosAno>();
+                    db.CreateTable<GastoTipo>();
+                    db.CreateTable<Projeto>();
+                }
+            }
         }
 
+
+        private async Task<bool> CheckFileExists(string fileName)
+        {
+            try
+            {
+                var store = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync(fileName);
+                return true;
+            }
+            catch
+            {
+            }
+            return false;
+        }
         /// <summary>
         /// Chamado quando o aplicativo é iniciado normalmente pelo usuário final.  Outros pontos de entrada
         /// serão usados, por exemplo, quando o aplicativo for iniciado para abrir um arquivo específico.
