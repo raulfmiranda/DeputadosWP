@@ -1,13 +1,12 @@
 ﻿using Deputados.Model;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -24,13 +23,15 @@ namespace Deputados
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class DetalheDeputado : Page
+    public sealed partial class ProjetosPage : Page
     {
+        private ObservableCollection<Projeto> projetos;
         private Deputado deputado;
 
-        public DetalheDeputado()
+        public ProjetosPage()
         {
             this.InitializeComponent();
+            GerarListaProjetos();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -40,17 +41,24 @@ namespace Deputados
                 deputado = (Deputado)e.Parameter;
                 imgFromUrl.Source = new BitmapImage(new Uri(deputado.FotoURL, UriKind.Absolute));
                 tbNomeParlamentar.Text = deputado.NomeParlamentar;
-                tbNomeCompleto.Text = deputado.NomeCompleto;
-                tbCargo.Text = deputado.Cargo;
-                tbPartido.Text = deputado.Partido;
-                tbMandato.Text = deputado.Mandato;
-                tbSexo.Text = deputado.Sexo;
-                tbUf.Text = deputado.Uf;
-                tbTelefone.Text = deputado.Telefone;
-                tbEmail.Text = deputado.Email;
-                tbNascimento.Text = deputado.Nascimento;
-                tbGastoTotal.Text = string.Format(CultureInfo.CurrentCulture, "{0:C}", deputado.GastoTotal);
-                tbGastoPorDia.Text = string.Format(CultureInfo.CurrentCulture, "{0:C}", deputado.GastoPorDia); 
+            }
+        }
+
+        private void GerarListaProjetos()
+        {
+            projetos = new ObservableCollection<Projeto>();
+            Projeto proj = new Projeto();
+
+            proj.Nome = "PL 8263/2014";
+            proj.Ano = 2014;
+            proj.DataApresentacao = "16/12/2014";
+            proj.Sigla = "PL";
+            proj.Ementa = "Institui a Política Nacional de Redução de Perdas e Desperdício de Alimentos e dá outras providências";
+
+
+            for (int i = 0; i < 9; i++)
+            {
+                projetos.Add(proj);
             }
         }
 
@@ -77,19 +85,9 @@ namespace Deputados
             }
         }
 
-        private void btFrequencia_Click(object sender, RoutedEventArgs e)
+        private void btVoltar_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(Frequencia), deputado);
-        }
-
-        private void btComissoes_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(ComissoesPage), deputado);
-        }
-
-        private void btProjetos_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(ProjetosPage), deputado);
+            this.Frame.Navigate(typeof(DetalheDeputado), deputado);
         }
     }
 }

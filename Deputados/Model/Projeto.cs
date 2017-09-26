@@ -8,15 +8,17 @@ namespace Deputados.Model
 {
     public class Projeto
     {
-        public string nome { get; set; }
-        public int ano { get; set; }
-        public string idParlamentarAutor { get; set; }
-        public string nomeAutor { get; set; }
-        public string dataApresentacao { get; set; }
-        public string sigla { get; set; }
-        public string ementa { get; set; }
+        public string Nome { get; set; }
+        public int Ano { get; set; }
+        public string IdParlamentarAutor { get; set; }
+        public string NomeAutor { get; set; }
+        public string DataApresentacao { get; set; }
+        public string Sigla { get; set; }
+        public string Ementa { get; set; }
 
         public Projeto()
-        { }
+        {
+
+        }
     }
 }
