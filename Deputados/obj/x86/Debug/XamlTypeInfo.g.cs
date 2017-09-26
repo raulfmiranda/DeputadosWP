@@ -132,15 +132,21 @@ namespace Deputados.Deputados_XamlTypeInfo
 
         private void InitTypeTables()
         {
-            _typeNameTable = new string[3];
-            _typeNameTable[0] = "Deputados.MainPage";
+            _typeNameTable = new string[6];
+            _typeNameTable[0] = "Deputados.ComissoesPage";
             _typeNameTable[1] = "Windows.UI.Xaml.Controls.Page";
             _typeNameTable[2] = "Windows.UI.Xaml.Controls.UserControl";
+            _typeNameTable[3] = "Deputados.DetalheDeputado";
+            _typeNameTable[4] = "Deputados.Frequencia";
+            _typeNameTable[5] = "Deputados.MainPage";
 
-            _typeTable = new global::System.Type[3];
-            _typeTable[0] = typeof(global::Deputados.MainPage);
+            _typeTable = new global::System.Type[6];
+            _typeTable[0] = typeof(global::Deputados.ComissoesPage);
             _typeTable[1] = typeof(global::Windows.UI.Xaml.Controls.Page);
             _typeTable[2] = typeof(global::Windows.UI.Xaml.Controls.UserControl);
+            _typeTable[3] = typeof(global::Deputados.DetalheDeputado);
+            _typeTable[4] = typeof(global::Deputados.Frequencia);
+            _typeTable[5] = typeof(global::Deputados.MainPage);
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -175,7 +181,10 @@ namespace Deputados.Deputados_XamlTypeInfo
             return -1;
         }
 
-        private object Activate_0_MainPage() { return new global::Deputados.MainPage(); }
+        private object Activate_0_ComissoesPage() { return new global::Deputados.ComissoesPage(); }
+        private object Activate_3_DetalheDeputado() { return new global::Deputados.DetalheDeputado(); }
+        private object Activate_4_Frequencia() { return new global::Deputados.Frequencia(); }
+        private object Activate_5_MainPage() { return new global::Deputados.MainPage(); }
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(int typeIndex)
         {
@@ -187,9 +196,9 @@ namespace Deputados.Deputados_XamlTypeInfo
             switch (typeIndex)
             {
 
-            case 0:   //  Deputados.MainPage
+            case 0:   //  Deputados.ComissoesPage
                 userType = new global::Deputados.Deputados_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_0_MainPage;
+                userType.Activator = Activate_0_ComissoesPage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
@@ -200,6 +209,27 @@ namespace Deputados.Deputados_XamlTypeInfo
 
             case 2:   //  Windows.UI.Xaml.Controls.UserControl
                 xamlType = new global::Deputados.Deputados_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 3:   //  Deputados.DetalheDeputado
+                userType = new global::Deputados.Deputados_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_3_DetalheDeputado;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 4:   //  Deputados.Frequencia
+                userType = new global::Deputados.Deputados_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_4_Frequencia;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 5:   //  Deputados.MainPage
+                userType = new global::Deputados.Deputados_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_5_MainPage;
+                userType.SetIsLocalType();
+                xamlType = userType;
                 break;
             }
             return xamlType;

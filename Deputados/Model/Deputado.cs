@@ -10,10 +10,8 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace Deputados.Model
 {
-    
-    class Deputado
+    public class Deputado
     {
-        
         public string Id { get; set; }       
         public string NomeParlamentar { get; set; }        
         public string NomeCompleto { get; set; }        

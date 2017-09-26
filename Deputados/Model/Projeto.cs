@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Deputados.Model
 {
-    class Projeto
+    public class Projeto
     {
         public string Nome { get; set; }
         public int Ano { get; set; }

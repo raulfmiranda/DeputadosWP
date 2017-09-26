@@ -1,0 +1,105 @@
+﻿<Page
+    x:Class="Deputados.DetalheDeputado"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Deputados"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{StaticResource page_background}"
+    mc:Ignorable="d">
+
+    <SplitView x:Name="splitView" DisplayMode="CompactOverlay" IsPaneOpen="False" CompactPaneLength="50" OpenPaneLength="150" Background="{StaticResource screen_background}" >
+        <SplitView.Pane>
+            <StackPanel Background="{StaticResource button_background}">
+                <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" Width="50" Height="50" Background="Transparent" Click="HamburgerButton_Click"/>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="mbt1" FontFamily="Segoe MDL2 Assets" Content="&#xE77B;"
+                    Width="50" Height="50" Background="Transparent" Click="Global_Button_Click"/>
+                    <TextBlock Text="Listar Deputados" MaxWidth="100" TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="mbt2" FontFamily="Segoe MDL2 Assets" Content="&#xE7AC;"
+                        Width="50" Height="50" Background="Transparent" Click="Global_Button_Click"/>
+                    <TextBlock Text="Ranking de Despesas" MaxWidth="100" TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="mbt3" FontFamily="Segoe MDL2 Assets" Content="&#xE8E0;"
+                        Width="50" Height="50" Background="Transparent" Click="Global_Button_Click"/>
+                    <TextBlock Text="Principais Gastadores" MaxWidth="100" TextWrapping="Wrap" />
+                </StackPanel>
+            </StackPanel>
+
+        </SplitView.Pane>
+        <SplitView.Content>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <ScrollViewer VerticalScrollMode="Enabled">
+                    <StackPanel Padding="10" Height="auto">
+                        <Image x:Name="imgFromUrl" MaxWidth="100" MaxHeight="130"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Nome:  " Margin="2"/>
+                            <TextBlock x:Name="tbNomeParlamentar" Margin="2" FontWeight="Bold"/>
+                        </StackPanel>
+                        <TextBlock Text="Nome Completo:  " Margin="2"/>
+                        <TextBlock x:Name="tbNomeCompleto" Margin="2" FontWeight="Bold" TextWrapping="Wrap"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Cargo:  " Margin="2"/>
+                            <TextBlock x:Name="tbCargo" Margin="2" FontWeight="Bold"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Partido:  " Margin="2"/>
+                            <TextBlock x:Name="tbPartido" Margin="2" FontWeight="Bold"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Mandato:  " Margin="2"/>
+                            <TextBlock x:Name="tbMandato" Margin="2" FontWeight="Bold"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Sexo:  " Margin="2"/>
+                            <TextBlock x:Name="tbSexo" Margin="2" FontWeight="Bold"/>
+                            <TextBlock Text="UF:  " Margin="2"/>
+                            <TextBlock x:Name="tbUf" Margin="2" FontWeight="Bold"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Telefone:  " Margin="2"/>
+                            <TextBlock x:Name="tbTelefone" Margin="2" FontWeight="Bold"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Email:  " Margin="2"/>
+                            <TextBlock x:Name="tbEmail" Margin="2" FontWeight="Bold"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Nascimento:  " Margin="2"/>
+                            <TextBlock x:Name="tbNascimento" Margin="2" FontWeight="Bold"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Gasto Total:  " Margin="2"/>
+                            <TextBlock x:Name="tbGastoTotal" Margin="2" FontWeight="Bold"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Gasto por Dia:  " Margin="2"/>
+                            <TextBlock x:Name="tbGastoPorDia" Margin="2" FontWeight="Bold"/>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </SplitView.Content>
+    </SplitView>
+
+    <Page.BottomAppBar>
+        <CommandBar Background="{StaticResource button_background}">
+            <CommandBar.SecondaryCommands>
+                <AppBarButton x:Name="btFrequencia" Label="Frequência" Click="btFrequencia_Click"/>
+                <AppBarButton x:Name="btComissoes" Label="Comissões" Click="btComissoes_Click"/>
+                <AppBarButton x:Name="btProjetos" Label="Projetos de Lei"/>
+                <AppBarButton x:Name="btTipoGastos" Label="Tipos de Gastos"/>
+                <AppBarButton x:Name="btEvolGastos" Label="Evolução dos Gastos"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

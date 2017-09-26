@@ -95,13 +95,23 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ComissoesPage.xaml.cs">
+      <DependentUpon>ComissoesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DBHelper\DatabaseHelper.cs" />
+    <Compile Include="DetalheDeputado.xaml.cs">
+      <DependentUpon>DetalheDeputado.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Frequencia.xaml.cs">
+      <DependentUpon>Frequencia.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Comissao.cs" />
     <Compile Include="Model\Deputado.cs" />
     <Compile Include="Model\DeputadoFrenquencia.cs" />
+    <Compile Include="Model\DeputadosSingleton.cs" />
     <Compile Include="Model\GastoCnpj.cs" />
     <Compile Include="Model\GastosAno.cs" />
     <Compile Include="Model\GastoTipo.cs" />
@@ -129,10 +139,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="ComissoesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DepDic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="DetalheDeputado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Frequencia.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>

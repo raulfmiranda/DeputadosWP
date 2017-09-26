@@ -26,12 +26,18 @@ namespace Deputados
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        // Lista de Deputados que está fazendo Bind com a MainPage.xaml
         private ObservableCollection<Deputado> deputados;
+
+        // Lista para guardar todos os deputados
+        private List<Deputado> listaDeputados;
 
         public MainPage()
         {
             this.InitializeComponent();
-            gerarListaDeputados();
+            deputados = new ObservableCollection<Deputado>();
+            InitComboEstados();
+            GerarListaDeputados();
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
@@ -43,15 +49,9 @@ namespace Deputados
         {
             Button btn = sender as Button;
 
-            mbt1.BorderBrush = new SolidColorBrush(Colors.Transparent);
-            mbt2.BorderBrush = new SolidColorBrush(Colors.Transparent);
-            mbt3.BorderBrush = new SolidColorBrush(Colors.Transparent);
-            btn.BorderBrush = new SolidColorBrush(Colors.White);
-            btn.BorderThickness = new Thickness(5, 0, 0, 0);
-
             if (btn.Name.Equals("mbt1"))
             {
-                //tbConteudo.Text = "1";
+                this.Frame.Navigate(typeof(MainPage));
             }
             else if (btn.Name.Equals("mbt2"))
             {
@@ -61,12 +61,26 @@ namespace Deputados
             {
                 //tbConteudo.Text = "3";
             }
-
         }
 
-        private void gerarListaDeputados()
+        private void InitComboEstados()
         {
-            deputados = new ObservableCollection<Deputado>();
+            string[] ufs = 
+                {"TODOS", "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "AL", "AM", "AP", "BA", "CE",
+                "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN",
+                "RO", "RR", "RS", "SC", "SE", "SP", "TO", "GO", "MA", "MG", "MS", "MT", "PA", "PB",
+                "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO" };
+
+            foreach(string uf in ufs)
+            {
+                cbEstados.Items.Add(uf);
+            }
+        }
+
+        private void GerarListaDeputados()
+        {
+            
+            listaDeputados = new List<Deputado>();
 
             Deputado deputado = new Deputado();
             deputado.Id = "160976";
@@ -85,9 +99,59 @@ namespace Deputados
             deputado.GastoPorDia = 525.0170983095475;
             deputado.imageFromUrl = new BitmapImage(new Uri(deputado.FotoURL, UriKind.Absolute));
 
-            deputados.Add(deputado);
-            deputados.Add(deputado);
-            deputados.Add(deputado);
+            for (int i = 0; i < 10; i++)
+            {
+                listaDeputados.Add(deputado);
+                deputados.Add(deputado);
+            }
+        }
+
+        private void FiltrarDeputados(string uf)
+        {
+            deputados.Clear();
+
+            if(uf.Equals("TODOS"))
+            {
+                foreach(Deputado dep in listaDeputados)
+                {
+                    deputados.Add(dep);
+                }
+            }
+            else
+            {
+                foreach (Deputado dep in listaDeputados)
+                {
+                    if(dep.Uf.Equals(uf))
+                    {
+                        deputados.Add(dep);
+                    }
+                }
+            }
+        }
+
+        private void LinkNomeParlamentar_Click(object sender, RoutedEventArgs e)
+        {
+            HyperlinkButton linkBtn = sender as HyperlinkButton;
+    
+            this.Frame.Navigate(typeof(DetalheDeputado), BuscaDeputado(linkBtn.Content.ToString()));
+        }
+
+        private Deputado BuscaDeputado(string nome)
+        {
+            foreach(Deputado dep in listaDeputados)
+            {
+                if(dep.NomeParlamentar.Equals(nome))
+                {
+                    return dep;
+                }
+            }
+            return null;
+        }
+
+        private void cbEstados_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string uf = cbEstados.SelectedValue.ToString();
+            FiltrarDeputados(uf);
         }
     }
 }
