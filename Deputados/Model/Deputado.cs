@@ -1,39 +1,57 @@
-﻿using SQLite.Net.Attributes;
+﻿using Newtonsoft.Json;
+using SQLite.Net.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace Deputados.Model
 {
+    [DataContract]
     public class Deputado
     {
-        public string Id { get; set; }       
+        [JsonProperty("id")]
+        public string Id { get; set; }
+        [JsonProperty("nomeParlamentar")]
         public string NomeParlamentar { get; set; }        
-        public string NomeCompleto { get; set; }        
-        public string Cargo { get; set; }        
-        public string Partido { get; set; }        
-        public string Mandato { get; set; }        
-        public string Sexo { get; set; }        
-        public string Uf { get; set; }        
-        public string Telefone { get; set; }        
-        public string Email { get; set; }        
-        public string Nascimento { get; set; }        
-        public string FotoURL { get; set; }        
-        public double GastoTotal { get; set; }        
+        [JsonProperty("nomeCompleto")]        
+        public string NomeCompleto { get; set; }
+        [JsonProperty("cargo")]
+        public string Cargo { get; set; }
+        [JsonProperty("partido")]
+        public string Partido { get; set; }
+        [JsonProperty("mandato")]
+        public string Mandato { get; set; }
+        [JsonProperty("sexo")]
+        public string Sexo { get; set; }
+        [JsonProperty("uf")]
+        public string Uf { get; set; }
+        [JsonProperty("telefone")]
+        public string Telefone { get; set; }
+        [JsonProperty("email")]
+        public string Email { get; set; }
+        [JsonProperty("nascimento")]
+        public string Nascimento { get; set; }
+        [JsonProperty("fotoURL")]
+        public string FotoURL { get; set; }
+        [JsonProperty("gastoTotal")]
+        public double GastoTotal { get; set; }
+        [JsonProperty("gastoPorDia")]
         public double GastoPorDia { get; set; }
-        [Ignore]
+        [Ignore][JsonIgnore]
         public List<Comissao> Comissoes { get; set; }
-        [Ignore]
+        [Ignore][JsonIgnore]
         public List<Projeto> Projetos { get; set; }
-        [Ignore]
+        [Ignore][JsonIgnore]
         public List<DeputadoFrenquencia> Frequencias { get; set; }
         [Ignore]
-        public BitmapImage ImageFromUrl { get; set; }
+        [JsonIgnore]
+        public BitmapImage ImageFromUrl { get { return new BitmapImage(new Uri(this.FotoURL, UriKind.Absolute)); } }
 
         public Deputado()
         {
@@ -110,4 +128,10 @@ namespace Deputados.Model
 
 
     }
+
+    public class RootObject
+    {
+        public List<Deputado> Deputados { get; set; }
+    }
+
 }

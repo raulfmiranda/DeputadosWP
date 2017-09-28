@@ -60,7 +60,7 @@
                                             <ColumnDefinition Width="1*"/>
                                             <ColumnDefinition Width="1*"/>
                                         </Grid.ColumnDefinitions>
-                                        <Image Source="{x:Bind imageFromUrl}" Grid.RowSpan="3"/>
+                                        <Image Source="{x:Bind ImageFromUrl}" Grid.RowSpan="3"/>
                                         <HyperlinkButton x:Name="linkNomeParlamentar" Foreground="{StaticResource hlink_foreground}" Content="{x:Bind NomeParlamentar}" Grid.Column="1" Grid.ColumnSpan="2" Click="LinkNomeParlamentar_Click"/>
                                         <TextBlock Text="{x:Bind Cargo}" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"/>
                                         <TextBlock Text="{x:Bind Partido}" HorizontalAlignment="Center"  Grid.Column="1" Grid.Row="2"/>
