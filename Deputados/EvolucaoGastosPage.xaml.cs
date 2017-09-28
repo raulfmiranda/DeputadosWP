@@ -1,13 +1,12 @@
 ﻿using Deputados.Model;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -24,13 +23,15 @@ namespace Deputados
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class DetalheDeputado : Page
+    public sealed partial class EvolucaoGastosPage : Page
     {
+        private ObservableCollection<GastoAnoTotal> gastos;
         private Deputado deputado;
 
-        public DetalheDeputado()
+        public EvolucaoGastosPage()
         {
             this.InitializeComponent();
+            GerarListaGastos();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -40,17 +41,21 @@ namespace Deputados
                 deputado = (Deputado)e.Parameter;
                 imgFromUrl.Source = new BitmapImage(new Uri(deputado.FotoURL, UriKind.Absolute));
                 tbNomeParlamentar.Text = deputado.NomeParlamentar;
-                tbNomeCompleto.Text = deputado.NomeCompleto;
-                tbCargo.Text = deputado.Cargo;
-                tbPartido.Text = deputado.Partido;
-                tbMandato.Text = deputado.Mandato;
-                tbSexo.Text = deputado.Sexo;
-                tbUf.Text = deputado.Uf;
-                tbTelefone.Text = deputado.Telefone;
-                tbEmail.Text = deputado.Email;
-                tbNascimento.Text = deputado.Nascimento;
-                tbGastoTotal.Text = string.Format(CultureInfo.CurrentCulture, "{0:C}", deputado.GastoTotal);
-                tbGastoPorDia.Text = string.Format(CultureInfo.CurrentCulture, "{0:C}", deputado.GastoPorDia); 
+            }
+        }
+
+        private void GerarListaGastos()
+        {
+            gastos = new ObservableCollection<GastoAnoTotal>();
+            GastoAnoTotal gas = new GastoAnoTotal();
+
+            gas.TipoGasto = "ASSINATURA DE PUBLICAÇÕES";
+            gas.Ano = 2011;
+            gas.Valor = "R$ 340120,25";
+
+            for (int i = 0; i < 12; i++)
+            {
+                gastos.Add(gas);
             }
         }
 
@@ -77,29 +82,9 @@ namespace Deputados
             }
         }
 
-        private void btFrequencia_Click(object sender, RoutedEventArgs e)
+        private void btVoltar_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(Frequencia), deputado);
-        }
-
-        private void btComissoes_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(ComissoesPage), deputado);
-        }
-
-        private void btProjetos_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(ProjetosPage), deputado);
-        }
-
-        private void btTipoGastos_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(TiposGastosPage), deputado);
-        }
-
-        private void btEvolGastos_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(EvolucaoGastosPage), deputado);
+            this.Frame.Navigate(typeof(DetalheDeputado), deputado);
         }
     }
 }

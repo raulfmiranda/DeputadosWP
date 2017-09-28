@@ -98,7 +98,7 @@
                 <AppBarButton x:Name="btComissoes" Label="Comissões" Click="btComissoes_Click"/>
                 <AppBarButton x:Name="btProjetos" Label="Projetos de Lei" Click="btProjetos_Click"/>
                 <AppBarButton x:Name="btTipoGastos" Label="Tipos de Gastos" Click="btTipoGastos_Click"/>
-                <AppBarButton x:Name="btEvolGastos" Label="Evolução dos Gastos"/>
+                <AppBarButton x:Name="btEvolGastos" Label="Evolução dos Gastos" Click="btEvolGastos_Click"/>
             </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>
