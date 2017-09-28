@@ -175,7 +175,7 @@ namespace Deputados
                 {
                     if ((phase & (NOT_PHASED | (1 << 0))) != 0)
                     {
-                        this.Update_imageFromUrl(obj.imageFromUrl, phase);
+                        this.Update_imageFromUrl(obj.ImageFromUrl, phase);
                         this.Update_NomeParlamentar(obj.NomeParlamentar, phase);
                         this.Update_Cargo(obj.Cargo, phase);
                         this.Update_Partido(obj.Partido, phase);

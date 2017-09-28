@@ -97,7 +97,7 @@ namespace Deputados
             deputado.FotoURL = "http://www.camara.gov.br/internet/deputado/bandep/160976.jpg";
             deputado.GastoTotal = 767049.9806302488;
             deputado.GastoPorDia = 525.0170983095475;
-            deputado.imageFromUrl = new BitmapImage(new Uri(deputado.FotoURL, UriKind.Absolute));
+            deputado.ImageFromUrl = new BitmapImage(new Uri(deputado.FotoURL, UriKind.Absolute));
 
             for (int i = 0; i < 10; i++)
             {
