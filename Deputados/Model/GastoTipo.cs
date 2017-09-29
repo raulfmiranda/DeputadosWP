@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,9 +10,13 @@ namespace Deputados.Model
 {
     class GastoTipo
     {
+        [JsonProperty("idDeputado")]
         public string IdDeputado { get; set; }
+        [JsonProperty("nome")]
         public string Nome { get; set; }
+        [JsonProperty("valor")]
         public double Valor { get; set; }
+        [JsonProperty("media")]
         public double Media { get; set; }
 
         public GastoTipo()

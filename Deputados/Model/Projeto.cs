@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,12 +10,19 @@ namespace Deputados.Model
 {
     public class Projeto
     {
+        [JsonProperty("Nome")]
         public string Nome { get; set; }
+        [JsonProperty("Ano")]
         public int Ano { get; set; }
+        [JsonProperty("IdParlamentarAutor")]
         public string IdParlamentarAutor { get; set; }
+        [JsonProperty("NomeAutor")]
         public string NomeAutor { get; set; }
+        [JsonProperty("DataApresentacao")]
         public string DataApresentacao { get; set; }
+        [JsonProperty("Sigla")]
         public string Sigla { get; set; }
+        [JsonProperty("Ementa")]
         public string Ementa { get; set; }
 
         public Projeto()

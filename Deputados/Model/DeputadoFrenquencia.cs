@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,12 +10,19 @@ namespace Deputados.Model
 {
     public class DeputadoFrenquencia
     {
+        [JsonProperty("idParlamentar")]
         public string IdParlamentar { get; set; }
+        [JsonProperty("ano")]
         public int Ano { get; set; }
+        [JsonProperty("presencasDias")]
         public int PresencasDias { get; set; }
+        [JsonProperty("presencasSessoes")]
         public int PresencasSessoes { get; set; }
+        [JsonProperty("ausenciasDias")]
         public int AusenciasDias { get; set; }
+        [JsonProperty("ausenciasSessoes")]
         public int AusenciasSessoes { get; set; }
+        [JsonProperty("indicePresenca")]
         public double IndicePresenca { get; set; }
 
         public static void Incluir(DeputadoFrenquencia objDeputadoFrenquencia)
