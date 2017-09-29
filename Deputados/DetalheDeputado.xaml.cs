@@ -46,7 +46,7 @@ namespace Deputados
                 tbMandato.Text = deputado.Mandato;
                 tbSexo.Text = deputado.Sexo;
                 tbUf.Text = deputado.Uf;
-                tbTelefone.Text = deputado.Telefone;
+                tbTelefone.Text = deputado.Telefone ?? "não informado";
                 tbEmail.Text = deputado.Email;
                 tbNascimento.Text = deputado.Nascimento;
                 tbGastoTotal.Text = string.Format(CultureInfo.CurrentCulture, "{0:C}", deputado.GastoTotal);

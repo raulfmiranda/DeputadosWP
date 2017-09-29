@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -34,18 +35,18 @@ namespace Deputados.WebserviceHelper
             return await responseGet.Content.ReadAsStringAsync();
         }
                                                                             
-        public static List<Deputado> GetTodoDeputados()
+        public static ObservableCollection<Deputado> GetTodoDeputados()
         {
-            string jsonString = GetRequest(URL_TODOS_DEPUTADO).Result;           
-            List<Deputado> rootObject = JsonConvert.DeserializeObject<List<Deputado>>(jsonString);
+            string jsonString = GetRequest(URL_TODOS_DEPUTADO).Result;
+            ObservableCollection<Deputado> rootObject = JsonConvert.DeserializeObject<ObservableCollection<Deputado>>(jsonString);
             return rootObject;
         }
 
-        public static List<Deputado> GetDeputadosPorEstado(string uf)
+        public static ObservableCollection<Deputado> GetDeputadosPorEstado(string uf)
         {
             string url = String.Format(URL_DEPUTADO_ESTADO, uf);
             string jsonString = GetRequest(url).Result;
-            List<Deputado> rootObject = JsonConvert.DeserializeObject<List<Deputado>>(jsonString);
+            ObservableCollection<Deputado> rootObject = JsonConvert.DeserializeObject<ObservableCollection<Deputado>>(jsonString);
             return rootObject;
         }
 
@@ -57,52 +58,52 @@ namespace Deputados.WebserviceHelper
             return rootObject;
         }
 
-        public static List<DeputadoFrenquencia> GetFrequenciaDeputado(string idDeputado)
+        public static ObservableCollection<DeputadoFrenquencia> GetFrequenciaDeputado(string idDeputado)
         {
             string url = String.Format(URL_FREQUENCIA_DEPUTADO, idDeputado);
             string jsonString = GetRequest(url).Result;
-            List<DeputadoFrenquencia> rootObject = JsonConvert.DeserializeObject<List<DeputadoFrenquencia>>(jsonString);
+            ObservableCollection<DeputadoFrenquencia> rootObject = JsonConvert.DeserializeObject<ObservableCollection<DeputadoFrenquencia>>(jsonString);
             return rootObject;
         }
 
-        public static List<Comissao> GetComissaoDeputado(string idDeputado)
+        public static ObservableCollection<Comissao> GetComissaoDeputado(string idDeputado)
         {
             string url = String.Format(URL_COMISSAO_DEPUTADO, idDeputado);
             string jsonString = GetRequest(url).Result;
-            List<Comissao> rootObject = JsonConvert.DeserializeObject<List<Comissao>>(jsonString);
+            ObservableCollection<Comissao> rootObject = JsonConvert.DeserializeObject<ObservableCollection<Comissao>>(jsonString);
             return rootObject;
         }
 
 
-        public static List<Projeto> GetProjetoDeputado(string idDeputado)
+        public static ObservableCollection<Projeto> GetProjetoDeputado(string idDeputado)
         {
             string url = String.Format(URL_PROJETO_DEPUTADO, idDeputado);
             string jsonString = GetRequest(url).Result;
-            List<Projeto> rootObject = JsonConvert.DeserializeObject<List<Projeto>>(jsonString);
+            ObservableCollection<Projeto> rootObject = JsonConvert.DeserializeObject<ObservableCollection<Projeto>>(jsonString);
             return rootObject;
         }
 
-        public static List<GastoTipo> GetTipoGastoDeputado(string idDeputado)
+        public static ObservableCollection<GastoTipo> GetTipoGastoDeputado(string idDeputado)
         {
             string url = String.Format(URL_GASTO_TIPO_DEPUTADO, idDeputado);
             string jsonString = GetRequest(url).Result;
-            List<GastoTipo> rootObject = JsonConvert.DeserializeObject<List<GastoTipo>>(jsonString);
+            ObservableCollection<GastoTipo> rootObject = JsonConvert.DeserializeObject<ObservableCollection<GastoTipo>>(jsonString);
             return rootObject;
         }
 
-        public static List<GastosAno> GetGastoAnoDeputado(string idDeputado, string ano)
+        public static ObservableCollection<GastosAno> GetGastoAnoDeputado(string idDeputado, string ano)
         {
             string url = String.Format(URL_GASTO_ANO, idDeputado, ano);
             string jsonString = GetRequest(url).Result;
-            List<GastosAno> rootObject = JsonConvert.DeserializeObject<List<GastosAno>>(jsonString);
+            ObservableCollection<GastosAno> rootObject = JsonConvert.DeserializeObject<ObservableCollection<GastosAno>>(jsonString);
             return rootObject;
         }
 
-        public static List<GastoCnpj> GetGastoCnpjDeputado(string idDeputado)
+        public static ObservableCollection<GastoCnpj> GetGastoCnpjDeputado(string idDeputado)
         {
             string url = String.Format(URL_GASTO_CNPJ, idDeputado);
             string jsonString = GetRequest(url).Result;
-            List<GastoCnpj> rootObject = JsonConvert.DeserializeObject<List<GastoCnpj>>(jsonString);
+            ObservableCollection<GastoCnpj> rootObject = JsonConvert.DeserializeObject<ObservableCollection<GastoCnpj>>(jsonString);
             return rootObject;
         }
 

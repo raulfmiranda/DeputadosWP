@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using Deputados.WebserviceHelper;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -31,7 +32,6 @@ namespace Deputados
         public Frequencia()
         {
             this.InitializeComponent();
-            GerarListaFrequencias();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -41,26 +41,29 @@ namespace Deputados
                 deputado = (Deputado)e.Parameter;
                 imgFromUrl.Source = new BitmapImage(new Uri(deputado.FotoURL, UriKind.Absolute));
                 tbNomeParlamentar.Text = deputado.NomeParlamentar;
+                GerarListaFrequencias();
             }
         }
 
         private void GerarListaFrequencias()
         {
             frequencias = new ObservableCollection<DeputadoFrenquencia>();
-            DeputadoFrenquencia freq = new DeputadoFrenquencia();
+            frequencias = WebServiceHelper.GetFrequenciaDeputado(deputado.Id);
 
-            freq.Ano = 2014;
-            freq.PresencasDias = 82;
-            freq.PresencasSessoes = 135;
-            freq.AusenciasDias = 0;
-            freq.AusenciasSessoes = 0;
-            freq.IndicePresenca = 100;
-            
+            //DeputadoFrenquencia freq = new DeputadoFrenquencia();
 
-            for (int i = 2011; i < 2015; i++)
-            {
-                frequencias.Add(freq);
-            }
+            //freq.Ano = 2014;
+            //freq.PresencasDias = 82;
+            //freq.PresencasSessoes = 135;
+            //freq.AusenciasDias = 0;
+            //freq.AusenciasSessoes = 0;
+            //freq.IndicePresenca = 100;
+
+
+            //for (int i = 2011; i < 2015; i++)
+            //{
+            //    frequencias.Add(freq);
+            //}
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)

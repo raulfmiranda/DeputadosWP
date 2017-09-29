@@ -32,7 +32,7 @@ namespace Deputados
         private ObservableCollection<Deputado> deputados;
 
         // Lista para guardar todos os deputados
-        private List<Deputado> listaDeputados;
+        private ObservableCollection<Deputado> listaDeputados;
 
         public MainPage()
         {
@@ -85,11 +85,15 @@ namespace Deputados
         private async void GerarListaDeputados()
         {
             
-            listaDeputados = new List<Deputado>();
+            listaDeputados = new ObservableCollection<Deputado>();
 
             listaDeputados = WebServiceHelper.GetTodoDeputados();
+            
+            foreach(Deputado dep in listaDeputados)
+            {
+                deputados.Add(dep);
+            }
 
-     
         }
 
         private void FiltrarDeputados(string uf)
