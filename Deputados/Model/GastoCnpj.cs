@@ -27,7 +27,7 @@ namespace Deputados.Model
 
         }
 
-        public static void Incluir(GastoCnpj objGastoCnpj)
+        private static void Incluir(GastoCnpj objGastoCnpj)
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
@@ -65,7 +65,7 @@ namespace Deputados.Model
             }
         }
 
-        public static ObservableCollection<GastoCnpj> ListarGastoCnpjDeputadoBanco(string idDeputado)
+        private static ObservableCollection<GastoCnpj> ListarGastoCnpjDeputadoBanco(string idDeputado)
         {
             try
             {
@@ -83,7 +83,7 @@ namespace Deputados.Model
         }
 
 
-        public static void ExcluirTodasGastoCnpj()
+        private static void ExcluirTodasGastoCnpj()
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
@@ -94,7 +94,7 @@ namespace Deputados.Model
             }
         }
 
-        public static void ExcluirGastoCnpjPorDeputado(string idDeputado)
+        private static void ExcluirGastoCnpjPorDeputado(string idDeputado)
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {

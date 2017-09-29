@@ -29,7 +29,7 @@ namespace Deputados.Model
         public Projeto()
         { }
 
-        public static void Incluir(Projeto objProjeto)
+        private static void Incluir(Projeto objProjeto)
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
@@ -69,7 +69,7 @@ namespace Deputados.Model
 
 
 
-        public static ObservableCollection<Projeto> ListarProjetooDeputadoBanco(string IdParlamentarAutor)
+        private static ObservableCollection<Projeto> ListarProjetooDeputadoBanco(string IdParlamentarAutor)
         {
             try
             {
@@ -87,7 +87,7 @@ namespace Deputados.Model
         }
 
 
-        public static void ExcluirTodasProjeto()
+        private static void ExcluirTodasProjeto()
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
@@ -98,7 +98,7 @@ namespace Deputados.Model
             }
         }
 
-        public static void ExcluirProjetosDeputado(string idDeputado)
+        private static void ExcluirProjetosDeputado(string idDeputado)
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {

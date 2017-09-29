@@ -31,7 +31,7 @@ namespace Deputados.Model
         [JsonProperty("saidaTxt")]
         public string SaidaTxt { get; set; }
 
-        public static void Incluir(Comissao objComissao)
+        private static void Incluir(Comissao objComissao)
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
@@ -70,7 +70,7 @@ namespace Deputados.Model
         }
 
 
-        public static ObservableCollection<Comissao> ListarComissaoDeputadoBanco(string idDeputado)
+        private static ObservableCollection<Comissao> ListarComissaoDeputadoBanco(string idDeputado)
         {
             try
             {
@@ -86,9 +86,9 @@ namespace Deputados.Model
                 return null;
             }
         }
-        
 
-        public static void ExcluirTodasComissoes()
+
+        private static void ExcluirTodasComissoes()
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
@@ -99,7 +99,7 @@ namespace Deputados.Model
             }
         }
 
-        public static void ExcluirCommisoesDeputado(string idDeputado)
+        private static void ExcluirCommisoesDeputado(string idDeputado)
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {

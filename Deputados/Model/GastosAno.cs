@@ -30,7 +30,7 @@ namespace Deputados.Model
 
         public GastosAno()
         { }
-        public static void Incluir(GastosAno objGastosAno)
+        private static void Incluir(GastosAno objGastosAno)
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
@@ -70,7 +70,7 @@ namespace Deputados.Model
 
 
 
-        public static ObservableCollection<GastosAno> ListarGastosAnoDeputadoBanco(string idDeputado, string ano)
+        private static ObservableCollection<GastosAno> ListarGastosAnoDeputadoBanco(string idDeputado, string ano)
         {
             try
             {
@@ -89,7 +89,7 @@ namespace Deputados.Model
         }
 
 
-        public static void ExcluirTodasGastoAno()
+        private static void ExcluirTodasGastoAno()
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
@@ -100,7 +100,7 @@ namespace Deputados.Model
             }
         }
 
-        public static void ExcluirGastoAnoPorDeputado(string idDeputado, string ano)
+        private static void ExcluirGastoAnoPorDeputado(string idDeputado, string ano)
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {

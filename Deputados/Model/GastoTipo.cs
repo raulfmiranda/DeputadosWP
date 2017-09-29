@@ -25,7 +25,7 @@ namespace Deputados.Model
 
         }
 
-        public static void Incluir(GastoTipo objGastoTipo)
+        private static void Incluir(GastoTipo objGastoTipo)
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
@@ -62,7 +62,7 @@ namespace Deputados.Model
             }
         }
 
-        public static ObservableCollection<GastoTipo> ListarGastoTipoDeputadoBanco(string idDeputado)
+        private static ObservableCollection<GastoTipo> ListarGastoTipoDeputadoBanco(string idDeputado)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace Deputados.Model
         }
 
 
-        public static void ExcluirTodasGastoTipo()
+        private static void ExcluirTodasGastoTipo()
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
@@ -91,7 +91,7 @@ namespace Deputados.Model
             }
         }
 
-        public static void ExcluirGastoTipoPorDeputado(string idDeputado)
+        private static void ExcluirGastoTipoPorDeputado(string idDeputado)
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {

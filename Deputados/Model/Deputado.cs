@@ -56,7 +56,7 @@ namespace Deputados.Model
                 return new BitmapImage(new Uri(this.FotoURL, UriKind.Absolute));               
             } }
 
-        public static void Incluir(Deputado objDeputado)
+        private static void Incluir(Deputado objDeputado)
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {

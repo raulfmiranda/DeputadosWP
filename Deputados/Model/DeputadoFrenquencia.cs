@@ -26,7 +26,7 @@ namespace Deputados.Model
         [JsonProperty("indicePresenca")]
         public double IndicePresenca { get; set; }
 
-        public static void Incluir(DeputadoFrenquencia objDeputadoFrenquencia)
+        private static void Incluir(DeputadoFrenquencia objDeputadoFrenquencia)
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
@@ -65,7 +65,7 @@ namespace Deputados.Model
         }
 
 
-        public static ObservableCollection<DeputadoFrenquencia> ListarFrequenciaDeputadoBanco(string IdParlamentar)
+        private static ObservableCollection<DeputadoFrenquencia> ListarFrequenciaDeputadoBanco(string IdParlamentar)
         {
             try
             {
@@ -83,7 +83,7 @@ namespace Deputados.Model
         }
 
 
-        public static void ExcluirTodasDeputadoFrenquencias()
+        private static void ExcluirTodasDeputadoFrenquencias()
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
@@ -94,7 +94,7 @@ namespace Deputados.Model
             }
         }
 
-        public static void ExcluirDeputadoFrenquencia(string IdParlamentar)
+        private static void ExcluirDeputadoFrenquencia(string IdParlamentar)
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
