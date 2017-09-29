@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Deputados.WebserviceHelper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -36,7 +37,35 @@ namespace Deputados.Model
             }
         }
 
-        public static ObservableCollection<DeputadoFrenquencia> ListarFrequenciaDeputado(string IdParlamentar)
+        private static void IncluirLista(ObservableCollection<DeputadoFrenquencia> frequencias)
+        {
+            foreach (DeputadoFrenquencia frequencia in frequencias)
+            {
+                Incluir(frequencia);
+            }
+
+        }
+
+        public static ObservableCollection<DeputadoFrenquencia> ListarComissaoDeputado(string idDeputado)
+        {
+            if (WebServiceHelper.possuiConexaoInternet())
+            {
+                ObservableCollection<DeputadoFrenquencia> frequencias = WebServiceHelper.GetFrequenciaDeputado(idDeputado);
+                var t = Task.Run(() => {
+                    ExcluirDeputadoFrenquencia(idDeputado);
+                    IncluirLista(frequencias);
+                });
+                
+                return frequencias;
+            }
+            else
+            {
+                return ListarFrequenciaDeputadoBanco(idDeputado);
+            }
+        }
+
+
+        public static ObservableCollection<DeputadoFrenquencia> ListarFrequenciaDeputadoBanco(string IdParlamentar)
         {
             try
             {

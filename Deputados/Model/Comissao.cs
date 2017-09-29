@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Deputados.WebserviceHelper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -41,7 +42,35 @@ namespace Deputados.Model
             }
         }
 
+        private static void IncluirLista(ObservableCollection<Comissao> comissoes)
+        {
+            foreach (Comissao comissao in comissoes)
+            {
+                Incluir(comissao);
+            }
+
+        }
+
         public static ObservableCollection<Comissao> ListarComissaoDeputado(string idDeputado)
+        {
+            if (WebServiceHelper.possuiConexaoInternet())
+            {
+                ObservableCollection<Comissao> comissoes = WebServiceHelper.GetComissaoDeputado(idDeputado);
+                var t = Task.Run(() => {
+                    ExcluirCommisoesDeputado(idDeputado);
+                    IncluirLista(comissoes);
+                });
+                
+                return comissoes;
+            }
+            else
+            {
+                return ListarComissaoDeputadoBanco(idDeputado);
+            }
+        }
+
+
+        public static ObservableCollection<Comissao> ListarComissaoDeputadoBanco(string idDeputado)
         {
             try
             {

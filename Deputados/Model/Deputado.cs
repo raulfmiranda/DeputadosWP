@@ -52,7 +52,9 @@ namespace Deputados.Model
         public List<DeputadoFrenquencia> Frequencias { get; set; }
         [Ignore]
         [JsonIgnore]
-        public BitmapImage ImageFromUrl { get { return new BitmapImage(new Uri(this.FotoURL, UriKind.Absolute)); } }
+        public BitmapImage ImageFromUrl { get {
+                return new BitmapImage(new Uri(this.FotoURL, UriKind.Absolute));               
+            } }
 
         public static void Incluir(Deputado objDeputado)
         {
@@ -74,14 +76,18 @@ namespace Deputados.Model
 
         }
 
+        
+
         public static ObservableCollection<Deputado> ListarTodosDeputados()
         {
             if (WebServiceHelper.possuiConexaoInternet())
             {
                 ObservableCollection<Deputado> deputados = WebServiceHelper.GetTodoDeputados();
                 //colocar em um thread depois
-                //ExcluirTodosOsDeputados();
-                //IncluirListaDeputados(deputados);
+                var t = Task.Run(() => {
+                    ExcluirTodosOsDeputados();
+                    IncluirListaDeputados(deputados);
+                });
                 return deputados;
             }
             else
@@ -94,10 +100,14 @@ namespace Deputados.Model
         {
             if (WebServiceHelper.possuiConexaoInternet())
             {
-                Deputado deputado = WebServiceHelper.GetDeputado(idDeputado);
-                //ExcluirDeputado(idDeputado);
-               // Incluir(deputado);
+                Deputado deputado = WebServiceHelper.GetDeputado(idDeputado);               
+                var t = Task.Run(() => {
+                    ExcluirDeputado(idDeputado);
+                    Incluir(deputado);
+                });
+
                 return deputado;
+
             }
             else
             {
@@ -112,8 +122,11 @@ namespace Deputados.Model
             if (WebServiceHelper.possuiConexaoInternet())
             {
                 ObservableCollection<Deputado> deputados = WebServiceHelper.GetDeputadosPorEstado(uf);
-                //ExcluirDeputadoPorEstado(uf);
-                //IncluirListaDeputados(deputados);
+                var t = Task.Run(() => {
+                    ExcluirDeputadoPorEstado(uf);
+                    IncluirListaDeputados(deputados);
+                });
+   
                 return deputados;
             }
             else

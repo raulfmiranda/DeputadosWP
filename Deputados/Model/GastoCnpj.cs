@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Deputados.WebserviceHelper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,11 +14,11 @@ namespace Deputados.Model
         [JsonProperty("idDeputado")]
         public string IdDeputado { get; set; }
         [JsonProperty("cnpj")]
-        public object Cnpj { get; set; }
+        public string Cnpj { get; set; }
         [JsonProperty("descricao")]
         public string Descricao { get; set; }
         [JsonProperty("detalhe")]
-        public object Detalhe { get; set; }
+        public string Detalhe { get; set; }
         [JsonProperty("totalGasto")]
         public double TotalGasto { get; set; }
 
@@ -37,7 +38,34 @@ namespace Deputados.Model
             }
         }
 
-        public static ObservableCollection<GastoCnpj> ListarFrequenciaDeputado(string idDeputado)
+        private static void IncluirLista(ObservableCollection<GastoCnpj> gastos)
+        {
+            foreach (GastoCnpj gasto in gastos)
+            {
+                Incluir(gasto);
+            }
+
+        }
+
+        public static ObservableCollection<GastoCnpj> ListarComissaoDeputado(string idDeputado)
+        {
+            if (WebServiceHelper.possuiConexaoInternet())
+            {
+                ObservableCollection<GastoCnpj> gastos = WebServiceHelper.GetGastoCnpjDeputado(idDeputado);
+                var t = Task.Run(() => {
+                    ExcluirGastoCnpjPorDeputado(idDeputado);
+                     IncluirLista(gastos);
+                });
+                
+                return gastos;
+            }
+            else
+            {
+                return ListarGastoCnpjDeputadoBanco(idDeputado);
+            }
+        }
+
+        public static ObservableCollection<GastoCnpj> ListarGastoCnpjDeputadoBanco(string idDeputado)
         {
             try
             {

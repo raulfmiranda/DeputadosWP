@@ -42,10 +42,9 @@ namespace Deputados
                     db.CreateTable<Deputado>();
                     db.CreateTable<Comissao>();
                     db.CreateTable<DeputadoFrenquencia>();
-                    
-                    db.CreateTable<GastosAno>();
-                    db.CreateTable<GastoTipo>();
                     db.CreateTable<Projeto>();
+                    db.CreateTable<GastoTipo>();
+                    db.CreateTable<GastosAno>();                                       
                     db.CreateTable<GastoCnpj>();
                 }
             }

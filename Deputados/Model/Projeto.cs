@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Deputados.WebserviceHelper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -39,7 +40,36 @@ namespace Deputados.Model
             }
         }
 
-        public static ObservableCollection<Projeto> ListarComissaoDeputado(string IdParlamentarAutor)
+        private static void IncluirLista(ObservableCollection<Projeto> projetos)
+        {
+            foreach (Projeto projeto in projetos)
+            {
+                Incluir(projeto);
+            }
+
+        }
+
+        public static ObservableCollection<Projeto> ListarProjetooDeputado(string idDeputado)
+        {
+            if (WebServiceHelper.possuiConexaoInternet())
+            {
+                ObservableCollection<Projeto> projetos = WebServiceHelper.GetProjetoDeputado(idDeputado);
+                var t = Task.Run(() => {
+                    ExcluirProjetosDeputado(idDeputado);
+                    IncluirLista(projetos);
+                });
+                
+                return projetos;
+            }
+            else
+            {
+                return ListarProjetooDeputadoBanco(idDeputado);
+            }
+        }
+
+
+
+        public static ObservableCollection<Projeto> ListarProjetooDeputadoBanco(string IdParlamentarAutor)
         {
             try
             {
@@ -57,7 +87,7 @@ namespace Deputados.Model
         }
 
 
-        public static void ExcluirTodasComissoes()
+        public static void ExcluirTodasProjeto()
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
@@ -68,7 +98,7 @@ namespace Deputados.Model
             }
         }
 
-        public static void ExcluirCommisoesDeputado(string idDeputado)
+        public static void ExcluirProjetosDeputado(string idDeputado)
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {

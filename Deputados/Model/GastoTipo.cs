@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Deputados.WebserviceHelper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -35,7 +36,33 @@ namespace Deputados.Model
             }
         }
 
-        public static ObservableCollection<GastoTipo> ListarFrequenciaDeputado(string idDeputado)
+        private static void IncluirLista(ObservableCollection<GastoTipo> gastos)
+        {
+            foreach (GastoTipo gasto in gastos)
+            {
+                Incluir(gasto);
+            }
+
+        }
+
+        public static ObservableCollection<GastoTipo> ListarGastoTipoDeputado(string idDeputado)
+        {
+            if (WebServiceHelper.possuiConexaoInternet())
+            {
+                ObservableCollection<GastoTipo> gastos = WebServiceHelper.GetTipoGastoDeputado(idDeputado);
+                var t = Task.Run(() => {
+                    ExcluirGastoTipoPorDeputado(idDeputado);
+                    IncluirLista(gastos);
+                });
+                return gastos;
+            }
+            else
+            {
+                return ListarGastoTipoDeputadoBanco(idDeputado);
+            }
+        }
+
+        public static ObservableCollection<GastoTipo> ListarGastoTipoDeputadoBanco(string idDeputado)
         {
             try
             {
@@ -53,7 +80,7 @@ namespace Deputados.Model
         }
 
 
-        public static void ExcluirTodasGastoCnpj()
+        public static void ExcluirTodasGastoTipo()
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
@@ -64,7 +91,7 @@ namespace Deputados.Model
             }
         }
 
-        public static void ExcluirGastoCnpjPorDeputado(string idDeputado)
+        public static void ExcluirGastoTipoPorDeputado(string idDeputado)
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
