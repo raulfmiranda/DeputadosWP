@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Deputados.WebserviceHelper;
+using Newtonsoft.Json;
 using SQLite.Net.Attributes;
 using System;
 using System.Collections.Generic;
@@ -53,11 +54,6 @@ namespace Deputados.Model
         [JsonIgnore]
         public BitmapImage ImageFromUrl { get { return new BitmapImage(new Uri(this.FotoURL, UriKind.Absolute)); } }
 
-        public Deputado()
-        {
-
-        }
-
         public static void Incluir(Deputado objDeputado)
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
@@ -69,16 +65,74 @@ namespace Deputados.Model
             }
         }
 
+        private static void IncluirListaDeputados(ObservableCollection<Deputado> deputados)
+        {
+            foreach (Deputado deputado in deputados)
+            {
+                Incluir(deputado);
+            }
+
+        }
+
+        public static ObservableCollection<Deputado> ListarTodosDeputados()
+        {
+            if (WebServiceHelper.possuiConexaoInternet())
+            {
+                ObservableCollection<Deputado> deputados = WebServiceHelper.GetTodoDeputados();
+                //colocar em um thread depois
+                //ExcluirTodosOsDeputados();
+                //IncluirListaDeputados(deputados);
+                return deputados;
+            }
+            else
+            {
+                return ListarTodosDeputadoBanco();
+            }
+        }
+
         public static Deputado ListarDeputado(string idDeputado)
+        {
+            if (WebServiceHelper.possuiConexaoInternet())
+            {
+                Deputado deputado = WebServiceHelper.GetDeputado(idDeputado);
+                //ExcluirDeputado(idDeputado);
+               // Incluir(deputado);
+                return deputado;
+            }
+            else
+            {
+                return ListarDeputadoBanco(idDeputado);
+            }
+        }
+
+
+
+        public static ObservableCollection<Deputado> ListarDeputadoPorEstado( string uf)
+        {
+            if (WebServiceHelper.possuiConexaoInternet())
+            {
+                ObservableCollection<Deputado> deputados = WebServiceHelper.GetDeputadosPorEstado(uf);
+                //ExcluirDeputadoPorEstado(uf);
+                //IncluirListaDeputados(deputados);
+                return deputados;
+            }
+            else
+            {
+                return ListarDeputadoPorEstado(uf);
+            }
+        }
+
+
+        private static Deputado ListarDeputadoBanco(string idDeputado)
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
-                var deputado = conexao.Query<Deputado>("select * from Deputado where Id =" + idDeputado).FirstOrDefault();
+                var deputado = conexao.Query<Deputado>("select * from deputado where Id =" + "\"" + idDeputado + "\"").FirstOrDefault();
                 return deputado;
             }
         }
 
-        public static ObservableCollection<Deputado> ListarTodosDeputado()
+        private static ObservableCollection<Deputado> ListarTodosDeputadoBanco()
         {
             try
             {
@@ -87,7 +141,6 @@ namespace Deputados.Model
                     List<Deputado> deputados = conexao.Table<Deputado>().ToList<Deputado>();
                     ObservableCollection<Deputado> ListaDeputados = new ObservableCollection<Deputado>(deputados);
                     return ListaDeputados;
-
                 }
             }
             catch
@@ -96,8 +149,21 @@ namespace Deputados.Model
             }
 
         }
+        private static ObservableCollection<Deputado> ListarDeputadosPorEstadoBanco(string uf)
+        {
+            using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
+            {
+                var deputados = conexao.Query<Deputado>("select * from deputado where Uf = {0}" ,  "\"" + uf + "\"").ToList<Deputado>();
+                ObservableCollection<Deputado> ListaDeputados = new ObservableCollection<Deputado>(deputados);
+                return ListaDeputados;
+                
+            }
+            
+        }
 
-        public static void ExcluirTodosOsDeputados()
+
+
+        private static void ExcluirTodosOsDeputados()
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
@@ -108,18 +174,22 @@ namespace Deputados.Model
             }
         }
 
-        public static void ExcluirDeputado(string idDeputado)
+        private static void ExcluirDeputado(string idDeputado)
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
-                var deputado = conexao.Query<Deputado>("select * from Deputado where Id =" + idDeputado).FirstOrDefault();
-                if (deputado != null)
-                {
-                    conexao.RunInTransaction(() =>
-                    {
-                        conexao.Delete(deputado);
-                    });
-                }
+              conexao.Execute("delete from Deputado where Id =" + idDeputado);
+  
+            }
+
+        }
+
+        private static void ExcluirDeputadoPorEstado(string uf)
+        {
+            using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
+            {
+                conexao.Execute("delete from Deputado where Uf =" + uf);
+
             }
 
         }

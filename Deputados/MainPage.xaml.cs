@@ -5,8 +5,8 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -16,7 +16,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using Deputados.WebserviceHelper;
 using System.Threading.Tasks;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x416
@@ -40,8 +39,6 @@ namespace Deputados
             deputados = new ObservableCollection<Deputado>();
             InitComboEstados();
             GerarListaDeputados();
-
-            
 
         }
 
@@ -82,12 +79,12 @@ namespace Deputados
             }
         }
 
-        private async void GerarListaDeputados()
+        private void GerarListaDeputados()
         {
             
             listaDeputados = new ObservableCollection<Deputado>();
 
-            listaDeputados = WebServiceHelper.GetTodoDeputados();
+            listaDeputados = Deputado.ListarTodosDeputados();
             
             foreach(Deputado dep in listaDeputados)
             {

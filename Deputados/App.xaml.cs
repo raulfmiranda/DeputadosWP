@@ -35,17 +35,18 @@ namespace Deputados
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-            if (CheckFileExists("DeputadoDB.sqlite").Result)
+            if (!CheckFileExists("DeputadoDB.sqlite").Result)
             {
                 using (var db = new SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), DB_PATH))
                 {
                     db.CreateTable<Deputado>();
                     db.CreateTable<Comissao>();
                     db.CreateTable<DeputadoFrenquencia>();
-                    db.CreateTable<GastoCnpj>();
+                    
                     db.CreateTable<GastosAno>();
                     db.CreateTable<GastoTipo>();
                     db.CreateTable<Projeto>();
+                    db.CreateTable<GastoCnpj>();
                 }
             }
         }

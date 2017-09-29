@@ -26,6 +26,11 @@ namespace Deputados.WebserviceHelper
         public const string URL_GASTO_CNPJ = "http://meucongressonacional.com/api/001/deputado/{0}/gastos/cnpj";
         
 
+        public static Boolean possuiConexaoInternet()
+        {
+            return true;
+        }
+
 
         public static async Task<String> GetRequest(string url)
         {
@@ -101,7 +106,7 @@ namespace Deputados.WebserviceHelper
 
         public static ObservableCollection<GastoCnpj> GetGastoCnpjDeputado(string idDeputado)
         {
-            string url = String.Format(URL_GASTO_CNPJ, idDeputado);
+                string url = String.Format(URL_GASTO_CNPJ, idDeputado);
             string jsonString = GetRequest(url).Result;
             ObservableCollection<GastoCnpj> rootObject = JsonConvert.DeserializeObject<ObservableCollection<GastoCnpj>>(jsonString);
             return rootObject;
