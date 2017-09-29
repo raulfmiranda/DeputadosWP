@@ -46,7 +46,7 @@ namespace Deputados.Model
 
         }
 
-        public static ObservableCollection<DeputadoFrenquencia> ListarComissaoDeputado(string idDeputado)
+        public static ObservableCollection<DeputadoFrenquencia> ListarFrequenciaDeputado(string idDeputado)
         {
             if (WebServiceHelper.possuiConexaoInternet())
             {
