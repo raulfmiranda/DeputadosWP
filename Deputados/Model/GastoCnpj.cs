@@ -47,7 +47,7 @@ namespace Deputados.Model
 
         }
 
-        public static ObservableCollection<GastoCnpj> ListarComissaoDeputado(string idDeputado)
+        public static ObservableCollection<GastoCnpj> ListarGastoCnpjDeputado(string idDeputado)
         {
             if (WebServiceHelper.possuiConexaoInternet())
             {
