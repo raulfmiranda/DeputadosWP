@@ -30,16 +30,12 @@ namespace Deputados
         // Lista de Deputados que está fazendo Bind com a MainPage.xaml
         private ObservableCollection<Deputado> deputados;
 
-        // Lista para guardar todos os deputados
-        private ObservableCollection<Deputado> listaDeputados;
-
         public MainPage()
         {
             this.InitializeComponent();
             deputados = new ObservableCollection<Deputado>();
             InitComboEstados();
-            GerarListaDeputados();
-
+            deputados = Deputado.ListarTodosDeputados();
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
@@ -79,40 +75,17 @@ namespace Deputados
             }
         }
 
-        private void GerarListaDeputados()
-        {
-            
-            listaDeputados = new ObservableCollection<Deputado>();
-
-            listaDeputados = Deputado.ListarTodosDeputados();
-            
-            foreach(Deputado dep in listaDeputados)
-            {
-                deputados.Add(dep);
-            }
-
-        }
-
         private void FiltrarDeputados(string uf)
         {
             deputados.Clear();
 
             if(uf.Equals("TODOS"))
             {
-                foreach(Deputado dep in listaDeputados)
-                {
-                    deputados.Add(dep);
-                }
+                deputados = Deputado.ListarTodosDeputados();
             }
             else
             {
-                foreach (Deputado dep in listaDeputados)
-                {
-                    if(dep.Uf.Equals(uf))
-                    {
-                        deputados.Add(dep);
-                    }
-                }
+                deputados = Deputado.ListarDeputadoPorEstado(uf);
             }
         }
 
@@ -125,7 +98,7 @@ namespace Deputados
 
         private Deputado BuscaDeputado(string nome)
         {
-            foreach(Deputado dep in listaDeputados)
+            foreach(Deputado dep in deputados)
             {
                 if(dep.NomeParlamentar.Equals(nome))
                 {

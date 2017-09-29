@@ -52,9 +52,13 @@ namespace Deputados.Model
         public List<DeputadoFrenquencia> Frequencias { get; set; }
         [Ignore]
         [JsonIgnore]
-        public BitmapImage ImageFromUrl { get {
+        public BitmapImage ImageFromUrl
+        {
+            get
+            {
                 return new BitmapImage(new Uri(this.FotoURL, UriKind.Absolute));               
-            } }
+            }
+        }
 
         private static void Incluir(Deputado objDeputado)
         {
@@ -117,7 +121,7 @@ namespace Deputados.Model
 
 
 
-        public static ObservableCollection<Deputado> ListarDeputadoPorEstado( string uf)
+        public static ObservableCollection<Deputado> ListarDeputadoPorEstado(string uf)
         {
             if (WebServiceHelper.possuiConexaoInternet())
             {
