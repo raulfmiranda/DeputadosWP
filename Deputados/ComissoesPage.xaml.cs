@@ -31,7 +31,6 @@ namespace Deputados
         public ComissoesPage()
         {
             this.InitializeComponent();
-            GerarListaComissoes();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -41,24 +40,9 @@ namespace Deputados
                 deputado = (Deputado)e.Parameter;
                 imgFromUrl.Source = new BitmapImage(new Uri(deputado.FotoURL, UriKind.Absolute));
                 tbNomeParlamentar.Text = deputado.NomeParlamentar;
-            }
-        }
 
-        private void GerarListaComissoes()
-        {
-            comissoes = new ObservableCollection<Comissao>();
-            Comissao comi = new Comissao();
-
-            comi.SiglaComissao = "CEXRACIS";
-            comi.Condicao = "Titular";
-            comi.NomeComissao = "Comissão Externa da Câmara dos Deputados, com ônus para esta Casa, para propor ações legislativas e políticas capazes de combater os recentes casos de Racismo, bem como investigar as providências adotadas pelos setores públicos e privados.";
-            comi.EntradaTxt = "24/04/2014";
-            comi.SaidaTxt = "07/05/2014";
-
-
-            for (int i = 0; i < 7; i++)
-            {
-                comissoes.Add(comi);
+                comissoes = new ObservableCollection<Comissao>();
+                comissoes = Comissao.ListarComissaoDeputado(deputado.Id);
             }
         }
 

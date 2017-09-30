@@ -41,29 +41,10 @@ namespace Deputados
                 deputado = (Deputado)e.Parameter;
                 imgFromUrl.Source = new BitmapImage(new Uri(deputado.FotoURL, UriKind.Absolute));
                 tbNomeParlamentar.Text = deputado.NomeParlamentar;
-                GerarListaFrequencias();
+
+                frequencias = new ObservableCollection<DeputadoFrenquencia>();
+                frequencias = DeputadoFrenquencia.ListarFrequenciaDeputado(deputado.Id);
             }
-        }
-
-        private void GerarListaFrequencias()
-        {
-            frequencias = new ObservableCollection<DeputadoFrenquencia>();
-            frequencias = WebServiceHelper.GetFrequenciaDeputado(deputado.Id);
-
-            //DeputadoFrenquencia freq = new DeputadoFrenquencia();
-
-            //freq.Ano = 2014;
-            //freq.PresencasDias = 82;
-            //freq.PresencasSessoes = 135;
-            //freq.AusenciasDias = 0;
-            //freq.AusenciasSessoes = 0;
-            //freq.IndicePresenca = 100;
-
-
-            //for (int i = 2011; i < 2015; i++)
-            //{
-            //    frequencias.Add(freq);
-            //}
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)

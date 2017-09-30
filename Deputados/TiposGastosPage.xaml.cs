@@ -31,7 +31,6 @@ namespace Deputados
         public TiposGastosPage()
         {
             this.InitializeComponent();
-            GerarListaGastos();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -41,22 +40,9 @@ namespace Deputados
                 deputado = (Deputado)e.Parameter;
                 imgFromUrl.Source = new BitmapImage(new Uri(deputado.FotoURL, UriKind.Absolute));
                 tbNomeParlamentar.Text = deputado.NomeParlamentar;
-            }
-        }
 
-        private void GerarListaGastos()
-        {
-            gastos = new ObservableCollection<GastoTipo>();
-            GastoTipo gas = new GastoTipo();
-
-            gas.Nome = "Locação de Veículos";
-            gas.Valor = 239055.40991950035;
-            gas.Media = 163.6245105540728;
-
-
-            for (int i = 0; i < 12; i++)
-            {
-                gastos.Add(gas);
+                gastos = new ObservableCollection<GastoTipo>();
+                gastos = GastoTipo.ListarGastoTipoDeputado(deputado.Id);
             }
         }
 

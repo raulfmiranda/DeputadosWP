@@ -49,7 +49,7 @@ namespace Deputados.Model
 
         }
 
-        public static ObservableCollection<Projeto> ListarProjetooDeputado(string idDeputado)
+        public static ObservableCollection<Projeto> ListarProjetoDeputado(string idDeputado)
         {
             if (WebServiceHelper.possuiConexaoInternet())
             {

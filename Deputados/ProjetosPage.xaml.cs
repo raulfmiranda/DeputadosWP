@@ -31,7 +31,6 @@ namespace Deputados
         public ProjetosPage()
         {
             this.InitializeComponent();
-            GerarListaProjetos();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -41,24 +40,9 @@ namespace Deputados
                 deputado = (Deputado)e.Parameter;
                 imgFromUrl.Source = new BitmapImage(new Uri(deputado.FotoURL, UriKind.Absolute));
                 tbNomeParlamentar.Text = deputado.NomeParlamentar;
-            }
-        }
 
-        private void GerarListaProjetos()
-        {
-            projetos = new ObservableCollection<Projeto>();
-            Projeto proj = new Projeto();
-
-            proj.Nome = "PL 8263/2014";
-            proj.Ano = 2014;
-            proj.DataApresentacao = "16/12/2014";
-            proj.Sigla = "PL";
-            proj.Ementa = "Institui a Política Nacional de Redução de Perdas e Desperdício de Alimentos e dá outras providências";
-
-
-            for (int i = 0; i < 9; i++)
-            {
-                projetos.Add(proj);
+                projetos = new ObservableCollection<Projeto>();
+                projetos = Projeto.ListarProjetoDeputado(deputado.Id);
             }
         }
 
