@@ -69,10 +69,8 @@
                             <TextBlock Text="Telefone:  " Margin="2"/>
                             <TextBlock x:Name="tbTelefone" Margin="2" FontWeight="Bold"/>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Email:  " Margin="2"/>
-                            <TextBlock x:Name="tbEmail" Margin="2" FontWeight="Bold"/>
-                        </StackPanel>
+                        <TextBlock Text="Email:  " Margin="2 2 0 2"/>
+                        <TextBlock x:Name="tbEmail" Margin="2 0 0 2" TextWrapping="Wrap" FontWeight="Bold"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Nascimento:  " Margin="2"/>
                             <TextBlock x:Name="tbNascimento" Margin="2" FontWeight="Bold"/>

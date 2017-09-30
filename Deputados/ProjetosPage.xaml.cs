@@ -38,7 +38,7 @@ namespace Deputados
             if (e.Parameter != null)
             {
                 deputado = (Deputado)e.Parameter;
-                imgFromUrl.Source = new BitmapImage(new Uri(deputado.FotoURL, UriKind.Absolute));
+                //imgFromUrl.Source = new BitmapImage(new Uri(deputado.FotoURL, UriKind.Absolute));
                 tbNomeParlamentar.Text = deputado.NomeParlamentar;
 
                 projetos = new ObservableCollection<Projeto>();

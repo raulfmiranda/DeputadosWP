@@ -106,7 +106,7 @@ namespace Deputados.WebserviceHelper
 
         public static ObservableCollection<GastoCnpj> GetGastoCnpjDeputado(string idDeputado)
         {
-                string url = String.Format(URL_GASTO_CNPJ, idDeputado);
+            string url = String.Format(URL_GASTO_CNPJ, idDeputado);
             string jsonString = GetRequest(url).Result;
             ObservableCollection<GastoCnpj> rootObject = JsonConvert.DeserializeObject<ObservableCollection<GastoCnpj>>(jsonString);
             return rootObject;
