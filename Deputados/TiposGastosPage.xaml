@@ -55,11 +55,11 @@
                                         <TextBlock x:Name="tbNome" Text="{x:Bind Nome}" Margin="0 0 0 10" TextWrapping="Wrap" FontWeight="Bold" HorizontalAlignment="Center"/>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="Valor:  " Margin="2"/>
-                                            <TextBlock x:Name="tbValor" Text="{x:Bind Valor}" Margin="2" FontWeight="Bold"/>
+                                            <TextBlock x:Name="tbValor" Text="{x:Bind ValorFormat}" Margin="2" FontWeight="Bold"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="Media:  " Margin="2"/>
-                                            <TextBlock x:Name="tbMedia" Text="{x:Bind Media}" Margin="2" FontWeight="Bold" />
+                                            <TextBlock x:Name="tbMedia" Text="{x:Bind MediaFormat}" Margin="2" FontWeight="Bold" />
                                         </StackPanel>
                                     </StackPanel>
                                 </ui:DataTemplate>

@@ -1,8 +1,10 @@
 ﻿using Deputados.WebserviceHelper;
 using Newtonsoft.Json;
+using SQLite.Net.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +21,25 @@ namespace Deputados.Model
         public double Valor { get; set; }
         [JsonProperty("media")]
         public double Media { get; set; }
+
+        [Ignore][JsonIgnore]
+        public string ValorFormat
+        {
+            get
+            {
+                return string.Format(CultureInfo.CurrentCulture, "{0:C}", this.Valor);
+            }
+        }
+
+        [Ignore][JsonIgnore]
+        public string MediaFormat
+        {
+            get
+            {
+                return string.Format(CultureInfo.CurrentCulture, "{0:C}", this.Media);
+            }
+        }
+
 
         public GastoTipo()
         {

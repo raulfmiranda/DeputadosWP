@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,14 @@ namespace Deputados.Model
         public string TipoGasto { get; set; }
         public object DescricaoGasto { get; set; }
         public double Valor { get; set; }
+
+        public string ValorFormat
+        {
+            get
+            {
+                return string.Format(CultureInfo.CurrentCulture, "{0:C}", this.Valor);
+            }
+        }
 
         public GastoAnoTotal()
         {
