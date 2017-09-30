@@ -55,10 +55,10 @@ namespace Deputados.Model
             if (WebServiceHelper.possuiConexaoInternet())
             {
                 ObservableCollection<GastosAno> gastos = WebServiceHelper.GetGastoAnoDeputado(idDeputado, ano);
-                var t = Task.Run(() => {
-                    ExcluirGastoAnoPorDeputado(idDeputado, ano);
-                    IncluirLista(gastos);
-                });
+                //var t = Task.Run(() => {
+                //    ExcluirGastoAnoPorDeputado(idDeputado, ano);
+                //    IncluirLista(gastos);
+                //});
                 
                 return gastos;
             }

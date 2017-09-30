@@ -29,11 +29,19 @@ namespace Deputados
     {
         // Lista de Deputados que está fazendo Bind com a MainPage.xaml
         private ObservableCollection<Deputado> deputados;
+        //{
+        //    get { return (ObservableCollection<Deputado>)GetValue(DeputadosProperty); }
+        //    set { SetValue(DeputadosProperty, value); }
+        //}
+
+        //public static readonly DependencyProperty DeputadosProperty = 
+        //    DependencyProperty.Register("deputados", typeof(ObservableCollection<Deputado>), typeof(MainPage), new PropertyMetadata(null));
+
 
         public MainPage()
         {
             this.InitializeComponent();
-            deputados = new ObservableCollection<Deputado>();
+            //deputados = new ObservableCollection<Deputado>();
             InitComboEstados();
             deputados = Deputado.ListarTodosDeputados();
         }
@@ -78,14 +86,27 @@ namespace Deputados
         private void FiltrarDeputados(string uf)
         {
             deputados.Clear();
+            ObservableCollection<Deputado> deps = new ObservableCollection<Deputado>();
 
-            if(uf.Equals("TODOS"))
+            if (uf.Equals("TODOS"))
             {
-                deputados = Deputado.ListarTodosDeputados();
+                deps = Deputado.ListarTodosDeputados();
+                //deputados = Deputado.ListarTodosDeputados();
+
+                foreach(Deputado dep in deps)
+                {
+                    deputados.Add(dep);
+                }
             }
             else
             {
-                deputados = Deputado.ListarDeputadoPorEstado(uf);
+                deps = Deputado.ListarDeputadoPorEstado(uf);
+                //deputados = Deputado.ListarDeputadoPorEstado(uf);
+
+                foreach(Deputado dep in deps)
+                {
+                    deputados.Add(dep);
+                } 
             }
         }
 

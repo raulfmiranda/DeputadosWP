@@ -31,7 +31,6 @@ namespace Deputados
         public EvolucaoGastosPage()
         {
             this.InitializeComponent();
-            GerarListaGastos();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -41,22 +40,26 @@ namespace Deputados
                 deputado = (Deputado)e.Parameter;
                 imgFromUrl.Source = new BitmapImage(new Uri(deputado.FotoURL, UriKind.Absolute));
                 tbNomeParlamentar.Text = deputado.NomeParlamentar;
+
+                gastos = new ObservableCollection<GastoAnoTotal>();
+                gastos = GastoAnoTotal.ListarGastosTotais(deputado.Id);
             }
         }
 
         private void GerarListaGastos()
         {
-            gastos = new ObservableCollection<GastoAnoTotal>();
-            GastoAnoTotal gas = new GastoAnoTotal();
+            
 
-            gas.TipoGasto = "ASSINATURA DE PUBLICAÇÕES";
-            gas.Ano = 2011;
-            gas.Valor = "R$ 340120,25";
+            //GastoAnoTotal gas = new GastoAnoTotal();
 
-            for (int i = 0; i < 12; i++)
-            {
-                gastos.Add(gas);
-            }
+            //gas.TipoGasto = "ASSINATURA DE PUBLICAÇÕES";
+            //gas.Ano = 2011;
+            //gas.Valor = "R$ 340120,25";
+
+            //for (int i = 0; i < 12; i++)
+            //{
+            //    gastos.Add(gas);
+            //}
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)

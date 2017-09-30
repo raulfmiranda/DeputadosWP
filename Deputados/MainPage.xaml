@@ -46,7 +46,7 @@
                 </StackPanel>
                 <ScrollViewer Grid.Row="1" VerticalScrollMode="Enabled">
                     <Grid Padding="10" Height="auto">
-                        <ListView ItemsSource="{x:Bind deputados}" x:Name="lvDeputados" Background="{StaticResource screen_background}">
+                        <ListView ItemsSource="{x:Bind deputados, Mode=OneWay}" x:Name="lvDeputados" Background="{StaticResource screen_background}">
                             <ListView.ItemTemplate>
                                 <ui:DataTemplate x:DataType="data:Deputado">
                                     <Grid BorderThickness="1" BorderBrush="{StaticResource screen_text}" Margin="1" Padding="5">

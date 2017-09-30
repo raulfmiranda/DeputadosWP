@@ -4,6 +4,7 @@ using SQLite.Net.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -14,7 +15,7 @@ using Windows.UI.Xaml.Media.Imaging;
 namespace Deputados.Model
 {
     [DataContract]
-    public class Deputado
+    public class Deputado //: INotifyPropertyChanged
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -59,6 +60,13 @@ namespace Deputados.Model
                 return new BitmapImage(new Uri(this.FotoURL, UriKind.Absolute));               
             }
         }
+
+        //public event PropertyChangedEventHandler PropertyChanged;
+
+        //private void RaisePropertyChanged(string prop)
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        //}
 
         private static void Incluir(Deputado objDeputado)
         {
@@ -126,11 +134,12 @@ namespace Deputados.Model
             if (WebServiceHelper.possuiConexaoInternet())
             {
                 ObservableCollection<Deputado> deputados = WebServiceHelper.GetDeputadosPorEstado(uf);
-                var t = Task.Run(() => {
-                    ExcluirDeputadoPorEstado(uf);
-                    IncluirListaDeputados(deputados);
-                });
-   
+                //var t = Task.Run(() =>
+                //{
+                //    ExcluirDeputadoPorEstado(uf);
+                //    IncluirListaDeputados(deputados);
+                //});
+
                 return deputados;
             }
             else
