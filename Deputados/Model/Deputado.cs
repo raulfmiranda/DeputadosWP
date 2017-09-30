@@ -61,7 +61,7 @@ namespace Deputados.Model
         {
             get
             {
-                return null;// new BitmapImage(new Uri(this.FotoURL, UriKind.Absolute));               
+                return new BitmapImage(new Uri(this.FotoURL, UriKind.Absolute));               
             }
         }
 

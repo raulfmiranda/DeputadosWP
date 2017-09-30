@@ -84,7 +84,7 @@ namespace Deputados.Model
             if (WebServiceHelper.possuiConexaoInternet())
             {
                 string jsonString = WebServiceHelper.GetTipoGastoDeputado(idDeputado);
-                ObservableCollection < GastoTipo > gastos = JsonConvert.DeserializeObject<ObservableCollection<GastoTipo>>(jsonString);
+                ObservableCollection <GastoTipo> gastos = JsonConvert.DeserializeObject<ObservableCollection<GastoTipo>>(jsonString);
                 ObservableCollection<GastoTipo> gastosClone = JsonConvert.DeserializeObject<ObservableCollection<GastoTipo>>(jsonString);
                 var t = Task.Run(() => {
                     ExcluirGastoTipoPorDeputado(idDeputado);
