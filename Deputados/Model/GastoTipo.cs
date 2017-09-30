@@ -51,8 +51,20 @@ namespace Deputados.Model
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
                 conexao.RunInTransaction(() =>
-                {
-                    conexao.Insert(objGastoTipo);
+                {                   
+                    for (int i = 0; i <= 10; i++)
+                    {
+                        try
+                        {
+                            conexao.Insert(objGastoTipo);
+                            break;
+                        }
+                        catch
+                        {
+                            Task.Delay(5000);
+                            continue;
+                        }
+                    }
                 });
             }
         }
@@ -70,7 +82,9 @@ namespace Deputados.Model
         {
             if (WebServiceHelper.possuiConexaoInternet())
             {
-                ObservableCollection<GastoTipo> gastos = WebServiceHelper.GetTipoGastoDeputado(idDeputado);
+                string jsonString = WebServiceHelper.GetTipoGastoDeputado(idDeputado);
+                ObservableCollection < GastoTipo > gastos = JsonConvert.DeserializeObject<ObservableCollection<GastoTipo>>(jsonString);
+                ObservableCollection<GastoTipo> gastosClone = JsonConvert.DeserializeObject<ObservableCollection<GastoTipo>>(jsonString);
                 var t = Task.Run(() => {
                     ExcluirGastoTipoPorDeputado(idDeputado);
                     IncluirLista(gastos);
@@ -89,7 +103,7 @@ namespace Deputados.Model
             {
                 using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
                 {
-                    List<GastoTipo> gastosTipo = conexao.Query<GastoTipo>("select * from GastoTipo where idDeputado =" + idDeputado).ToList<GastoTipo>();
+                    List<GastoTipo> gastosTipo = conexao.Query<GastoTipo>("select * from GastoTipo where idDeputado =" + "\"" + idDeputado + "\"").ToList<GastoTipo>();
                     ObservableCollection<GastoTipo> ListaGastoCnpjj = new ObservableCollection<GastoTipo>(gastosTipo);
                     return ListaGastoCnpjj;
                 }
@@ -105,10 +119,23 @@ namespace Deputados.Model
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
-                conexao.DropTable<GastoTipo>();
-                conexao.CreateTable<GastoTipo>();
-                conexao.Dispose();
-                conexao.Close();
+
+                for (int i = 0; i <= 10; i++)
+                {
+                    try
+                    {
+                        conexao.DropTable<GastoTipo>();
+                        conexao.CreateTable<GastoTipo>();
+                        conexao.Dispose();
+                        conexao.Close();
+                        break;
+                    }
+                    catch
+                    {
+                        Task.Delay(5000);
+                        continue;
+                    }
+                }
             }
         }
 
@@ -116,7 +143,20 @@ namespace Deputados.Model
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
-                conexao.Execute("delete from GastoTipo where idDeputado =" + idDeputado);
+                
+                for (int i = 0; i <= 10; i++)
+                {
+                    try
+                    {
+                        conexao.Execute("delete from GastoTipo where idDeputado =" + "\"" + idDeputado + "\"");
+                        break;
+                    }
+                    catch
+                    {
+                        Task.Delay(5000);
+                        continue;
+                    }
+                }
             }
 
         }

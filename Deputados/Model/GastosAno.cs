@@ -35,8 +35,20 @@ namespace Deputados.Model
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
                 conexao.RunInTransaction(() =>
-                {
-                    conexao.Insert(objGastosAno);
+                {                    
+                    for (int i = 0; i <= 10; i++)
+                    {
+                        try
+                        {
+                            conexao.Insert(objGastosAno);
+                            break;
+                        }
+                        catch
+                        {
+                            Task.Delay(5000);
+                            continue;
+                        }
+                    }
                 });
             }
         }
@@ -54,11 +66,13 @@ namespace Deputados.Model
         {
             if (WebServiceHelper.possuiConexaoInternet())
             {
-                ObservableCollection<GastosAno> gastos = WebServiceHelper.GetGastoAnoDeputado(idDeputado, ano);
-                //var t = Task.Run(() => {
-                //    ExcluirGastoAnoPorDeputado(idDeputado, ano);
-                //    IncluirLista(gastos);
-                //});
+                string jsonString = WebServiceHelper.GetGastoAnoDeputado(idDeputado, ano);
+                ObservableCollection<GastosAno> gastos = JsonConvert.DeserializeObject<ObservableCollection<GastosAno>>(jsonString);
+                ObservableCollection<GastosAno> gastosClone = JsonConvert.DeserializeObject<ObservableCollection<GastosAno>>(jsonString);
+                var t = Task.Run(() => {
+                    ExcluirGastoAnoPorDeputado(idDeputado, ano);
+                    IncluirLista(gastos);
+                });
                 
                 return gastos;
             }
@@ -93,10 +107,23 @@ namespace Deputados.Model
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
-                conexao.DropTable<GastosAno>();
-                conexao.CreateTable<GastosAno>();
-                conexao.Dispose();
-                conexao.Close();
+
+                for (int i = 0; i <= 10; i++)
+                {
+                    try
+                    {
+                        conexao.DropTable<GastosAno>();
+                        conexao.CreateTable<GastosAno>();
+                        conexao.Dispose();
+                        conexao.Close();
+                        break;
+                    }
+                    catch
+                    {
+                        Task.Delay(5000);
+                        continue;
+                    }
+                }
             }
         }
 
@@ -104,8 +131,21 @@ namespace Deputados.Model
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
-                conexao.Execute(
-                    String.Format("delete from GastosAno where idDeputado = {0} and Ano = {1}", "\"" + idDeputado + "\"", "\"" + ano + "\""));
+                
+                for (int i = 0; i <= 10; i++)
+                {
+                    try
+                    {                        
+                        conexao.Execute(
+                            String.Format("delete from GastosAno where idDeputado = {0} and Ano = {1}", "\"" + idDeputado + "\"", "\"" + ano + "\""));
+                        break;
+                    }
+                    catch
+                    {
+                        Task.Delay(5000);
+                        continue;
+                    }
+                }
             }
 
         }

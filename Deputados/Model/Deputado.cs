@@ -11,6 +11,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media.Imaging;
+using  System.Threading;
 
 namespace Deputados.Model
 {
@@ -20,8 +21,8 @@ namespace Deputados.Model
         [JsonProperty("id")]
         public string Id { get; set; }
         [JsonProperty("nomeParlamentar")]
-        public string NomeParlamentar { get; set; }        
-        [JsonProperty("nomeCompleto")]        
+        public string NomeParlamentar { get; set; }
+        [JsonProperty("nomeCompleto")]
         public string NomeCompleto { get; set; }
         [JsonProperty("cargo")]
         public string Cargo { get; set; }
@@ -45,11 +46,14 @@ namespace Deputados.Model
         public double GastoTotal { get; set; }
         [JsonProperty("gastoPorDia")]
         public double GastoPorDia { get; set; }
-        [Ignore][JsonIgnore]
+        [Ignore]
+        [JsonIgnore]
         public List<Comissao> Comissoes { get; set; }
-        [Ignore][JsonIgnore]
+        [Ignore]
+        [JsonIgnore]
         public List<Projeto> Projetos { get; set; }
-        [Ignore][JsonIgnore]
+        [Ignore]
+        [JsonIgnore]
         public List<DeputadoFrenquencia> Frequencias { get; set; }
         [Ignore]
         [JsonIgnore]
@@ -57,48 +61,22 @@ namespace Deputados.Model
         {
             get
             {
-                return new BitmapImage(new Uri(this.FotoURL, UriKind.Absolute));               
+                return null;// new BitmapImage(new Uri(this.FotoURL, UriKind.Absolute));               
             }
         }
-
-        //public event PropertyChangedEventHandler PropertyChanged;
-
-        //private void RaisePropertyChanged(string prop)
-        //{
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        //}
-
-        private static void Incluir(Deputado objDeputado)
-        {
-            using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
-            {
-                conexao.RunInTransaction(() =>
-                {
-                    conexao.Insert(objDeputado);
-                });
-            }
-        }
-
-        private static void IncluirListaDeputados(ObservableCollection<Deputado> deputados)
-        {
-            foreach (Deputado deputado in deputados)
-            {
-                Incluir(deputado);
-            }
-
-        }
-
-        
 
         public static ObservableCollection<Deputado> ListarTodosDeputados()
         {
             if (WebServiceHelper.possuiConexaoInternet())
             {
-                ObservableCollection<Deputado> deputados = WebServiceHelper.GetTodoDeputados();
-                //colocar em um thread depois
-                var t = Task.Run(() => {
+                string jsonString = WebServiceHelper.GetTodoDeputados();
+                ObservableCollection<Deputado> deputados = JsonConvert.DeserializeObject<ObservableCollection<Deputado>>(jsonString);
+                ObservableCollection<Deputado> deputadosClone = JsonConvert.DeserializeObject<ObservableCollection<Deputado>>(jsonString);
+
+                var t = Task.Run(() =>
+                {
                     ExcluirTodosOsDeputados();
-                    IncluirListaDeputados(deputados);
+                    IncluirListaDeputados(deputadosClone);
                 });
                 return deputados;
             }
@@ -112,10 +90,13 @@ namespace Deputados.Model
         {
             if (WebServiceHelper.possuiConexaoInternet())
             {
-                Deputado deputado = WebServiceHelper.GetDeputado(idDeputado);               
-                var t = Task.Run(() => {
+                string jsonString = WebServiceHelper.GetDeputado(idDeputado);
+                Deputado deputado = JsonConvert.DeserializeObject<Deputado>(jsonString);
+                Deputado deputadoclone = JsonConvert.DeserializeObject<Deputado>(jsonString);
+                var t = Task.Run(() =>
+                {
                     ExcluirDeputado(idDeputado);
-                    Incluir(deputado);
+                    Incluir(deputadoclone);
                 });
 
                 return deputado;
@@ -133,12 +114,16 @@ namespace Deputados.Model
         {
             if (WebServiceHelper.possuiConexaoInternet())
             {
-                ObservableCollection<Deputado> deputados = WebServiceHelper.GetDeputadosPorEstado(uf);
-                //var t = Task.Run(() =>
-                //{
-                //    ExcluirDeputadoPorEstado(uf);
-                //    IncluirListaDeputados(deputados);
-                //});
+
+                string jsonString = WebServiceHelper.GetDeputadosPorEstado(uf);
+                ObservableCollection<Deputado> deputados = JsonConvert.DeserializeObject<ObservableCollection<Deputado>>(jsonString);
+                ObservableCollection<Deputado> deputadosClone = JsonConvert.DeserializeObject<ObservableCollection<Deputado>>(jsonString);
+
+                var t = Task.Run(() =>
+                {
+                    ExcluirDeputadoPorEstado(uf);
+                    IncluirListaDeputados(deputadosClone);
+                });
 
                 return deputados;
             }
@@ -146,6 +131,43 @@ namespace Deputados.Model
             {
                 return ListarDeputadoPorEstado(uf);
             }
+        }
+
+
+
+        private static void Incluir(Deputado objDeputado)
+        {
+            using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
+            {
+                 conexao.RunInTransaction(() =>
+                {
+                    for (int i = 0; i <= 10; i++)
+                    {
+                        try
+                        {
+                            conexao.Insert(objDeputado);
+                            break;
+                        }
+                        catch
+                        {
+                            Task.Delay(5000);
+                            continue;
+                        }                    
+                    }
+
+
+
+                });
+            }
+        }
+
+        private static void IncluirListaDeputados(ObservableCollection<Deputado> deputados)
+        {
+            foreach (Deputado deputado in deputados)
+            {
+                Incluir(deputado);
+            }
+
         }
 
 
@@ -164,6 +186,7 @@ namespace Deputados.Model
             {
                 using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
                 {
+
                     List<Deputado> deputados = conexao.Table<Deputado>().ToList<Deputado>();
                     ObservableCollection<Deputado> ListaDeputados = new ObservableCollection<Deputado>(deputados);
                     return ListaDeputados;
@@ -179,12 +202,11 @@ namespace Deputados.Model
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
-                var deputados = conexao.Query<Deputado>("select * from deputado where Uf = {0}" ,  "\"" + uf + "\"").ToList<Deputado>();
+                var deputados = conexao.Query<Deputado>("select * from deputado where Uf = {0}", "\"" + uf + "\"").ToList<Deputado>();
                 ObservableCollection<Deputado> ListaDeputados = new ObservableCollection<Deputado>(deputados);
                 return ListaDeputados;
-                
             }
-            
+
         }
 
 
@@ -193,10 +215,23 @@ namespace Deputados.Model
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
-                conexao.DropTable<Deputado>();
-                conexao.CreateTable<Deputado>();
-                conexao.Dispose();
-                conexao.Close();
+
+                for (int i = 0; i <= 10; i++)
+                {
+                    try
+                    {
+                        conexao.DropTable<Deputado>();
+                        conexao.CreateTable<Deputado>();
+                        conexao.Dispose();
+                        conexao.Close();
+                        break;
+                    }
+                    catch
+                    {
+                        Task.Delay(5000);
+                        break;
+                    }
+                }
             }
         }
 
@@ -204,8 +239,23 @@ namespace Deputados.Model
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
-              conexao.Execute("delete from Deputado where Id =" + idDeputado);
-  
+                for (int i = 0; i <= 10; i++)
+                {
+                    try
+                    {                   
+                        conexao.Execute("delete from Deputado where Id =" + "\"" + idDeputado +"\"" );
+                        break;
+                    }
+                    catch
+                    {
+                        Task.Delay(5000);
+                        break;
+                    }
+
+                }
+
+
+
             }
 
         }
@@ -214,20 +264,25 @@ namespace Deputados.Model
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
-                conexao.Execute("delete from Deputado where Uf =" + uf);
+                for (int i=0; i<=10; i++)
+                {
 
+                    try
+                    {
+                       conexao.Execute("delete from Deputado where Uf =" + "\"" + uf + "\"");
+                       break;
+                    }
+                    catch
+                    {
+                        Task.Delay(5000);
+                        break;
+                    }
+              
+                }
             }
 
         }
 
-
-
-
     }
-
-    public class RootObject
-    {
-        public List<Deputado> Deputados { get; set; }
-    }
-
 }
+

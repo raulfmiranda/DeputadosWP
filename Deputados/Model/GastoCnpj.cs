@@ -33,7 +33,20 @@ namespace Deputados.Model
             {
                 conexao.RunInTransaction(() =>
                 {
-                    conexao.Insert(objGastoCnpj);
+                    for (int i = 0; i <= 10; i++)
+                    {
+                        try
+                        {
+                            conexao.Insert(objGastoCnpj);
+                            break;
+                        }
+                        catch
+                        {
+                            Task.Delay(5000);
+                            continue;
+                        }
+                    }
+                    
                 });
             }
         }
@@ -51,7 +64,9 @@ namespace Deputados.Model
         {
             if (WebServiceHelper.possuiConexaoInternet())
             {
-                ObservableCollection<GastoCnpj> gastos = WebServiceHelper.GetGastoCnpjDeputado(idDeputado);
+                String jsonString = WebServiceHelper.GetGastoCnpjDeputado(idDeputado);
+                ObservableCollection<GastoCnpj> gastos = JsonConvert.DeserializeObject<ObservableCollection<GastoCnpj>>(jsonString);
+                ObservableCollection<GastoCnpj> gastosClone = JsonConvert.DeserializeObject<ObservableCollection<GastoCnpj>>(jsonString);
                 var t = Task.Run(() => {
                     ExcluirGastoCnpjPorDeputado(idDeputado);
                      IncluirLista(gastos);
@@ -71,7 +86,7 @@ namespace Deputados.Model
             {
                 using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
                 {
-                    List<GastoCnpj> gastosCnpj = conexao.Query<GastoCnpj>("select * from GastoCnpj where idDeputado =" + idDeputado).ToList<GastoCnpj>();
+                    List<GastoCnpj> gastosCnpj = conexao.Query<GastoCnpj>("select * from GastoCnpj where idDeputado =" + "\"" + idDeputado + "\"").ToList<GastoCnpj>();
                     ObservableCollection<GastoCnpj> ListaGastoCnpjj = new ObservableCollection<GastoCnpj>(gastosCnpj);
                     return ListaGastoCnpjj;
                 }
@@ -98,7 +113,20 @@ namespace Deputados.Model
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
-                conexao.Execute("delete from GastoCnpj where idDeputado =" + idDeputado);
+                
+                for (int i = 0; i <= 10; i++)
+                {
+                    try
+                    {
+                        conexao.Execute("delete from GastoCnpj where idDeputado = " + "\"" + idDeputado + "\"");
+                        break;
+                    }
+                    catch
+                    {
+                        Task.Delay(5000);
+                        continue;
+                    }
+                }
             }
 
         }

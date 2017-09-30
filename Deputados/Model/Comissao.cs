@@ -37,7 +37,20 @@ namespace Deputados.Model
             {
                 conexao.RunInTransaction(() =>
                 {
-                    conexao.Insert(objComissao);
+                    for (int i = 0; i <= 10; i++)
+                    {
+                        try
+                        {
+                            conexao.Insert(objComissao);
+                            break;
+                        }
+                        catch
+                        {
+                            Task.Delay(5000);
+                            continue;
+                        }
+                    }
+                    
                 });
             }
         }
@@ -55,7 +68,9 @@ namespace Deputados.Model
         {
             if (WebServiceHelper.possuiConexaoInternet())
             {
-                ObservableCollection<Comissao> comissoes = WebServiceHelper.GetComissaoDeputado(idDeputado);
+                string jsonString = WebServiceHelper.GetComissaoDeputado(idDeputado);
+                ObservableCollection<Comissao> comissoes = JsonConvert.DeserializeObject<ObservableCollection<Comissao>>(jsonString);
+                ObservableCollection<Comissao> comissoesClone = JsonConvert.DeserializeObject<ObservableCollection<Comissao>>(jsonString);
                 var t = Task.Run(() => {
                     ExcluirCommisoesDeputado(idDeputado);
                     IncluirLista(comissoes);
@@ -76,7 +91,7 @@ namespace Deputados.Model
             {
                 using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
                 {
-                    List<Comissao> comissoes = conexao.Query<Comissao>("select * from Comissao where IdeCadastroDeputado =" + idDeputado).ToList<Comissao>();
+                    List<Comissao> comissoes = conexao.Query<Comissao>("select * from Comissao where IdeCadastroDeputado =" + "\"" +  idDeputado+ "\"").ToList<Comissao>();
                     ObservableCollection<Comissao> ListaComissoeDeputados = new ObservableCollection<Comissao>(comissoes);
                     return ListaComissoeDeputados;
                 }
@@ -92,18 +107,43 @@ namespace Deputados.Model
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
-                conexao.DropTable<Comissao>();
-                conexao.CreateTable<Comissao>();
-                conexao.Dispose();
-                conexao.Close();
+
+                for (int i = 0; i <= 10; i++)
+                {
+                    try
+                    {
+                        conexao.DropTable<Comissao>();
+                        conexao.CreateTable<Comissao>();
+                        conexao.Dispose();
+                        conexao.Close();
+                        break;
+                    }
+                    catch
+                    {
+                        Task.Delay(5000);
+                        continue;
+                    }
+                }
             }
         }
 
         private static void ExcluirCommisoesDeputado(string idDeputado)
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
-            {
-                conexao.Execute("delete from Comissao where IdeCadastroDeputado =" + idDeputado);
+            {                
+                for (int i = 0; i <= 10; i++)
+                {
+                    try
+                    {
+                        conexao.Execute("delete from Comissao where IdeCadastroDeputado =" + "\"" + idDeputado + "\"");
+                        break;
+                    }
+                    catch
+                    {
+                        Task.Delay(5000);
+                        continue;
+                    }
+                }
             }
 
         }

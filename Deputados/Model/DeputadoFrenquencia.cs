@@ -32,7 +32,21 @@ namespace Deputados.Model
             {
                 conexao.RunInTransaction(() =>
                 {
-                    conexao.Insert(objDeputadoFrenquencia);
+                    for (int i = 0; i <= 10; i++)
+                    {
+                        try
+                        {
+                            conexao.Insert(objDeputadoFrenquencia);
+                            break;
+                        }
+                        catch
+                        {
+                            Task.Delay(5000);
+                            continue;
+                        }
+                    }
+
+                    
                 });
             }
         }
@@ -50,10 +64,12 @@ namespace Deputados.Model
         {
             if (WebServiceHelper.possuiConexaoInternet())
             {
-                ObservableCollection<DeputadoFrenquencia> frequencias = WebServiceHelper.GetFrequenciaDeputado(idDeputado);
+                string jsonString = WebServiceHelper.GetFrequenciaDeputado(idDeputado);
+                ObservableCollection<DeputadoFrenquencia> frequencias = JsonConvert.DeserializeObject<ObservableCollection<DeputadoFrenquencia>>(jsonString);
+                ObservableCollection<DeputadoFrenquencia> frequenciasClone = JsonConvert.DeserializeObject<ObservableCollection<DeputadoFrenquencia>>(jsonString);
                 var t = Task.Run(() => {
                     ExcluirDeputadoFrenquencia(idDeputado);
-                    IncluirLista(frequencias);
+                    IncluirLista(frequenciasClone);
                 });
                 
                 return frequencias;
@@ -71,7 +87,7 @@ namespace Deputados.Model
             {
                 using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
                 {
-                    List<DeputadoFrenquencia> frequencias = conexao.Query<DeputadoFrenquencia>("select * from DeputadoFrenquencia where IdParlamentar =" + IdParlamentar).ToList<DeputadoFrenquencia>();
+                    List<DeputadoFrenquencia> frequencias = conexao.Query<DeputadoFrenquencia>("select * from DeputadoFrenquencia where IdParlamentar =" + "\"" +  IdParlamentar + "\"").ToList<DeputadoFrenquencia>();
                     ObservableCollection<DeputadoFrenquencia> ListaDeputadoFrenquencia = new ObservableCollection<DeputadoFrenquencia>(frequencias);
                     return ListaDeputadoFrenquencia;
                 }
@@ -87,10 +103,23 @@ namespace Deputados.Model
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
-                conexao.DropTable<DeputadoFrenquencia>();
-                conexao.CreateTable<DeputadoFrenquencia>();
-                conexao.Dispose();
-                conexao.Close();
+
+                for (int i = 0; i <= 10; i++)
+                {
+                    try
+                    {
+                        conexao.DropTable<DeputadoFrenquencia>();
+                        conexao.CreateTable<DeputadoFrenquencia>();
+                        conexao.Dispose();
+                        conexao.Close();
+                        break;
+                    }
+                    catch
+                    {
+                        Task.Delay(5000);
+                        continue;
+                    }
+                }
             }
         }
 
@@ -98,8 +127,22 @@ namespace Deputados.Model
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
-                conexao.Execute("delete from DeputadoFrenquencia where IdParlamentar =" + IdParlamentar);
+                
+                for (int i = 0; i <= 10; i++)
+                {
+                    try
+                    {
+                        conexao.Execute("delete from DeputadoFrenquencia where IdParlamentar =" + "\"" + IdParlamentar + "\"");
+                        break;
+                    }
+                    catch
+                    {
+                        Task.Delay(5000);
+                        continue;
+                    }
+                }
             }
+
 
         }
 

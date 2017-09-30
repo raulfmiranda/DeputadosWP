@@ -32,84 +32,84 @@ namespace Deputados.WebserviceHelper
         }
 
 
-        public static async Task<String> GetRequest(string url)
+        private static async Task<String> GetRequest(string url)
         {
             Uri geturi = new Uri(url); 
             System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
             System.Net.Http.HttpResponseMessage responseGet = await client.GetAsync(geturi).ConfigureAwait(continueOnCapturedContext: false);
             return await responseGet.Content.ReadAsStringAsync();
         }
-                                                                            
-        public static ObservableCollection<Deputado> GetTodoDeputados()
+
+
+        public static string GetTodoDeputados()
         {
-            string jsonString = GetRequest(URL_TODOS_DEPUTADO).Result;
-            ObservableCollection<Deputado> rootObject = JsonConvert.DeserializeObject<ObservableCollection<Deputado>>(jsonString);
-            return rootObject;
+            string jsonString = GetRequest(URL_TODOS_DEPUTADO).Result;           
+            return jsonString;
         }
 
-        public static ObservableCollection<Deputado> GetDeputadosPorEstado(string uf)
+
+        public static string GetDeputadosPorEstado(string uf)
         {
             string url = String.Format(URL_DEPUTADO_ESTADO, uf);
-            string jsonString = GetRequest(url).Result;
-            ObservableCollection<Deputado> rootObject = JsonConvert.DeserializeObject<ObservableCollection<Deputado>>(jsonString);
-            return rootObject;
+            string jsonString = GetRequest(url).Result;            
+            return jsonString;
         }
 
-        public static Deputado GetDeputado(string idDeputado)
+        public static string GetDeputado(string idDeputado)
         {
             string url = String.Format(URL_DEPUTADO, idDeputado);
             string jsonString = GetRequest(url).Result;
-            Deputado rootObject = JsonConvert.DeserializeObject<Deputado>(jsonString);
-            return rootObject;
+            //Deputado rootObject = JsonConvert.DeserializeObject<Deputado>(jsonString);
+            return jsonString;
         }
 
-        public static ObservableCollection<DeputadoFrenquencia> GetFrequenciaDeputado(string idDeputado)
+        public static string GetFrequenciaDeputado(string idDeputado)
         {
             string url = String.Format(URL_FREQUENCIA_DEPUTADO, idDeputado);
             string jsonString = GetRequest(url).Result;
-            ObservableCollection<DeputadoFrenquencia> rootObject = JsonConvert.DeserializeObject<ObservableCollection<DeputadoFrenquencia>>(jsonString);
-            return rootObject;
+           // ObservableCollection<DeputadoFrenquencia> rootObject = JsonConvert.DeserializeObject<ObservableCollection<DeputadoFrenquencia>>(jsonString);
+            return jsonString;
         }
 
-        public static ObservableCollection<Comissao> GetComissaoDeputado(string idDeputado)
+        public static string GetComissaoDeputado(string idDeputado)
         {
             string url = String.Format(URL_COMISSAO_DEPUTADO, idDeputado);
             string jsonString = GetRequest(url).Result;
-            ObservableCollection<Comissao> rootObject = JsonConvert.DeserializeObject<ObservableCollection<Comissao>>(jsonString);
-            return rootObject;
+            //ObservableCollection<Comissao> rootObject = JsonConvert.DeserializeObject<ObservableCollection<Comissao>>(jsonString);
+            return jsonString;
         }
 
 
-        public static ObservableCollection<Projeto> GetProjetoDeputado(string idDeputado)
+        public static string GetProjetoDeputado(string idDeputado)
         {
             string url = String.Format(URL_PROJETO_DEPUTADO, idDeputado);
             string jsonString = GetRequest(url).Result;
-            ObservableCollection<Projeto> rootObject = JsonConvert.DeserializeObject<ObservableCollection<Projeto>>(jsonString);
-            return rootObject;
+            //ObservableCollection<Projeto> rootObject = JsonConvert.DeserializeObject<ObservableCollection<Projeto>>(jsonString);
+            return jsonString;
         }
 
-        public static ObservableCollection<GastoTipo> GetTipoGastoDeputado(string idDeputado)
+        public static string GetTipoGastoDeputado(string idDeputado)
         {
             string url = String.Format(URL_GASTO_TIPO_DEPUTADO, idDeputado);
             string jsonString = GetRequest(url).Result;
-            ObservableCollection<GastoTipo> rootObject = JsonConvert.DeserializeObject<ObservableCollection<GastoTipo>>(jsonString);
-            return rootObject;
+            //ObservableCollection<GastoTipo> rootObject = JsonConvert.DeserializeObject<ObservableCollection<GastoTipo>>(jsonString);
+            return jsonString;
         }
 
-        public static ObservableCollection<GastosAno> GetGastoAnoDeputado(string idDeputado, string ano)
+        public static string GetGastoAnoDeputado(string idDeputado, string ano)
         {
             string url = String.Format(URL_GASTO_ANO, idDeputado, ano);
             string jsonString = GetRequest(url).Result;
-            ObservableCollection<GastosAno> rootObject = JsonConvert.DeserializeObject<ObservableCollection<GastosAno>>(jsonString);
-            return rootObject;
+            //ObservableCollection<GastosAno> rootObject = JsonConvert.DeserializeObject<ObservableCollection<GastosAno>>(jsonString);
+            return jsonString;
         }
 
-        public static ObservableCollection<GastoCnpj> GetGastoCnpjDeputado(string idDeputado)
+        public static string GetGastoCnpjDeputado(string idDeputado)
         {
             string url = String.Format(URL_GASTO_CNPJ, idDeputado);
             string jsonString = GetRequest(url).Result;
-            ObservableCollection<GastoCnpj> rootObject = JsonConvert.DeserializeObject<ObservableCollection<GastoCnpj>>(jsonString);
-            return rootObject;
+           // ObservableCollection<GastoCnpj> rootObject = JsonConvert.DeserializeObject<ObservableCollection<GastoCnpj>>(jsonString);
+            return jsonString;
         }
 
 
