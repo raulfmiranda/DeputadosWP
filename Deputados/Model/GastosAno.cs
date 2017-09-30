@@ -142,7 +142,7 @@ namespace Deputados.Model
                     }
                     catch
                     {
-                        Task.Delay(5000);
+                        Task.Delay(15000);
                         continue;
                     }
                 }

@@ -129,7 +129,7 @@ namespace Deputados.Model
             }
             else
             {
-                return ListarDeputadoPorEstado(uf);
+                return ListarDeputadosPorEstadoBanco(uf);
             }
         }
 
@@ -202,7 +202,7 @@ namespace Deputados.Model
         {
             using (SQLite.Net.SQLiteConnection conexao = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), App.DB_PATH))
             {
-                var deputados = conexao.Query<Deputado>("select * from deputado where Uf = {0}", "\"" + uf + "\"").ToList<Deputado>();
+                var deputados = conexao.Query<Deputado>("select * from deputado where Uf = " + "\"" + uf + "\"").ToList<Deputado>();
                 ObservableCollection<Deputado> ListaDeputados = new ObservableCollection<Deputado>(deputados);
                 return ListaDeputados;
             }
@@ -274,7 +274,7 @@ namespace Deputados.Model
                     }
                     catch
                     {
-                        Task.Delay(5000);
+                        Task.Delay(10000);
                         break;
                     }
               

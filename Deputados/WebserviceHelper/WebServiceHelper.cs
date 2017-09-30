@@ -6,9 +6,12 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Data.Json;
+using Windows.Storage.Provider;
+using System.Net.NetworkInformation;
 
 namespace Deputados.WebserviceHelper
 {
@@ -28,7 +31,13 @@ namespace Deputados.WebserviceHelper
 
         public static Boolean possuiConexaoInternet()
         {
-            return true;
+            Boolean hasConnection = false;
+            //Checa adaptadores de rede
+            if (NetworkInterface.GetIsNetworkAvailable())
+            {
+                hasConnection = true;
+            }
+            return hasConnection;
         }
 
 
