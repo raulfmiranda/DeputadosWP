@@ -13,7 +13,7 @@ namespace Deputados.Model
 {
     class GastoTipo
     {
-        [JsonProperty("idDeputado")]
+        [JsonIgnore]
         public string IdDeputado { get; set; }
         [JsonProperty("nome")]
         public string Nome { get; set; }
@@ -69,10 +69,11 @@ namespace Deputados.Model
             }
         }
 
-        private static void IncluirLista(ObservableCollection<GastoTipo> gastos)
+        private static void IncluirLista(ObservableCollection<GastoTipo> gastos, string idDeputado)
         {
             foreach (GastoTipo gasto in gastos)
             {
+                gasto.IdDeputado = idDeputado;
                 Incluir(gasto);
             }
 
@@ -87,7 +88,7 @@ namespace Deputados.Model
                 ObservableCollection<GastoTipo> gastosClone = JsonConvert.DeserializeObject<ObservableCollection<GastoTipo>>(jsonString);
                 var t = Task.Run(() => {
                     ExcluirGastoTipoPorDeputado(idDeputado);
-                    IncluirLista(gastos);
+                    IncluirLista(gastos, idDeputado);
                 });
                 return gastos;
             }

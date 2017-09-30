@@ -31,13 +31,15 @@ namespace Deputados.WebserviceHelper
 
         public static Boolean possuiConexaoInternet()
         {
-            Boolean hasConnection = false;
-            //Checa adaptadores de rede
-            if (NetworkInterface.GetIsNetworkAvailable())
-            {
-                hasConnection = true;
-            }
-            return hasConnection;
+            //    Boolean hasConnection = false;
+            //    //Checa adaptadores de rede
+            //    if (NetworkInterface.GetIsNetworkAvailable())
+            //    {
+            //        hasConnection = true;
+            //    }
+            //    return hasConnection;
+            //
+            return false;
         }
 
 

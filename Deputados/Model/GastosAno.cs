@@ -11,15 +11,15 @@ namespace Deputados.Model
 {
     class GastosAno
     {
-        [JsonProperty("idDeputado")]
+        [JsonIgnore]
         public string IdDeputado { get; set; }
         [JsonProperty("cnpjCpf")]
         public string CnpjCpf { get; set; }
         [JsonProperty("tipoGasto")]
         public string TipoGasto { get; set; }
-        [JsonProperty("sescricaoGasto")]
+        [JsonProperty("descricaoGasto")]
         public string DescricaoGasto { get; set; }
-        [JsonProperty("sataEmissao")]
+        [JsonProperty("dataEmissao")]
         public string DataEmissao { get; set; }
         [JsonProperty("valor")]
         public double Valor { get; set; }
@@ -45,7 +45,7 @@ namespace Deputados.Model
                         }
                         catch
                         {
-                            Task.Delay(5000);
+                            Task.Delay(15000);
                             continue;
                         }
                     }
@@ -53,10 +53,12 @@ namespace Deputados.Model
             }
         }
 
-        private static void IncluirLista(ObservableCollection<GastosAno> gastos)
+        private static void IncluirLista(ObservableCollection<GastosAno> gastos, string idDeputado, string ano)
         {
             foreach (GastosAno gasto in gastos)
             {
+                gasto.Ano = ano;
+                gasto.IdDeputado = idDeputado;
                 Incluir(gasto);
             }
 
@@ -71,7 +73,7 @@ namespace Deputados.Model
                 ObservableCollection<GastosAno> gastosClone = JsonConvert.DeserializeObject<ObservableCollection<GastosAno>>(jsonString);
                 var t = Task.Run(() => {
                     ExcluirGastoAnoPorDeputado(idDeputado, ano);
-                    IncluirLista(gastos);
+                    IncluirLista(gastos, idDeputado, ano);
                 });
                 
                 return gastos;
