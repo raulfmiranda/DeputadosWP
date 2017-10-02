@@ -37,7 +37,7 @@ namespace Deputados.WebserviceHelper
             //{
             //    hasConnection = true;
             //}
-            return false;//hasConnection;
+            return true;//hasConnection;
         }
 
 
